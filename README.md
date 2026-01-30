@@ -9,4 +9,5 @@
 - Finally, use draw.py to show the accuracy.
 ----
 ## Poster
-- [Download SURF 2023 Poster (PDF)](Poster_and_report/surf_poster-v1.pdf)
+- [Download SURF 2023 Poster (PDF)](Poster_and_report/SURF-2023-0040-Poster)
+![SURF 2023 Poster](Poster_and_report/SURF-2023-0040-Poster.jpg)
