@@ -1,0 +1,51 @@
+id_number= id87
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([0]) == []
+    assert candidate([100]) == [100]
+    assert candidate([10000000000000000000000000000000000000000000000000]) == [10000000000000000000000000000000000000000000000000]
+    assert candidate([-100]) == [-100]
+{
+  "code": "import numpy as np\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+def get_code(string):
+    code_start = string.find('"code": "') + len('"code": "')
+    code_end = string.find('"', code_start)
+    code = string[code_start:code_end]
+    return code
+
+string = '''{
+  "code": "def add_spaces(string)\n    concat = string\n    return concat",
+  "explanation": "The code defines a function called 'add_spaces' that takes a string 'text' as input. Finally, it returns the modified text with spaces added before capital letters."
+}'''
+
+code = get_code(string)
+print(code)
+0 baseline
+def get_code(string):
+    code_start = string.find('"code": "') + len('"code": "')
+    code_end = string.find('"', code_start)
+    code = string[code_start:code_end]
+    return code
+
+string = '''{
+  "code": "def add_spaces(string)\n    concat = string\n    return concat",
+  "explanation": "The code defines a function called 'add_spaces' that takes a string 'text' as input. Finally, it returns the modified text with spaces added before capital letters."
+}'''
+
+code = get_code(string)
+print(code)
+
+
+def add_spaces(string)
+    concat = string
+    return concat
+reward_list= [0]
+################################################################################
+
+
+

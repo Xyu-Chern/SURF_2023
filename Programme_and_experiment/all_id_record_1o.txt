@@ -1,0 +1,7396 @@
+id_number= id1
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("abcdecadeCADE")==["a", "b", "c", "d", "e"] 
+    assert candidate("Jerry jERRY JeRRRY")==[" ","e","j", "r", "y" ]
+
+0 baseline
+def get_sorted_distinct_chars(string):
+    return sorted(set(string.lower()))
+
+
+1 summary_prompt+decomposition
+def get_sorted_distinct_characters(input_string):
+    return sorted(list(set(input_string.lower())))
+
+
+2 summary_prompt+mtbp_orignal
+def get_sorted_distinct_chars(my_string):
+    my_string = "{A}"
+    my_string = my_string.lower()
+    chars = list(set(my_string))
+    chars.sort()
+    return chars
+
+print(get_sorted_distinct_chars("abcdj"))
+
+
+['a', '{', '}']
+3 summary_promptdecomposition+chainofthought
+def get_sorted_distinct_characters(input_string):
+    lowercase_string = input_string.lower()
+    distinct_characters = list(set(lowercase_string))
+    sorted_characters = sorted(distinct_characters)
+    return sorted_characters
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sorted_distinct_chars(my_string):
+    my_string = my_string.lower()
+    chars = list(set(my_string))
+    chars.sort()
+    return chars
+
+
+reward_list= [1, 1, 0, 1, 1]
+################################################################################
+id_number= id2
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate([56, 97, 19, 57, 69])==["18.8", "32.6","6.4", "19.1", "23.2"]
+    assert candidate([])==[]
+
+0 baseline
+def format_numbers(lst):
+    return [f'{(x/sum(lst))*100:.1f}' for x in lst]
+
+
+1 summary_prompt+decomposition
+def format_numbers(numbers):
+    total_sum = sum(numbers)
+    formatted_numbers = []
+    for num in numbers:
+        formatted_num = format((num / total_sum) * 100, '.1f')
+        formatted_numbers.append(formatted_num)
+    return formatted_numbers
+
+
+2 summary_prompt+mtbp_orignal
+def format_numbers(numbers):
+    total = sum(numbers)
+    normalized = [(num / total) * 100 for num in numbers]
+    formatted = [f'{num:.1f}' for num in normalized]
+    return formatted
+
+
+3 summary_promptdecomposition+chainofthought
+def format_numbers(numbers):
+    total_sum = sum(numbers)
+    formatted_numbers = []
+    for num in numbers:
+        formatted_num = format((num / total_sum) * 100, '.1f')
+        formatted_numbers.append(formatted_num)
+    return formatted_numbers
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def format_numbers(numbers):
+    total = sum(numbers)
+    normalized = [(num / total) * 100 for num in numbers]
+    formatted = [f'{num:.1f}' for num in normalized]
+    return formatted
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id3
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(1,2) == 3720
+    assert candidate(32,32) ==117120 
+
+0 baseline
+def convert_to_seconds(hours, minutes):
+    return (hours * 3600) + (minutes * 60)
+
+
+1 summary_prompt+decomposition
+def convert_to_seconds(hours, minutes):
+    total_seconds = (hours * 3600) + (minutes * 60)
+    return total_seconds
+
+
+2 summary_prompt+mtbp_orignal
+def convert_to_seconds(hours, minutes):
+    total_minutes = hours * 60 + minutes
+    total_seconds = total_minutes * 60
+    return total_seconds
+
+
+3 summary_promptdecomposition+chainofthought
+def convert_to_seconds(hours, minutes):
+    return (hours * 3600) + (minutes * 60)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def convert_to_seconds(hours, minutes):
+    return (hours * 3600) + (minutes * 60)
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id4
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([2]) == 1
+    assert candidate([3]) == 4
+
+0 baseline
+def fibonacci_square(n):
+    return fibonacci(n)**2
+
+
+1 summary_prompt+decomposition
+def square_of_fibonacci(number):
+    fib_sequence = [0, 1]
+    while len(fib_sequence) <= number:
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+    return fib_sequence[number] ** 2
+
+
+2 summary_prompt+mtbp_orignal
+def fibonacci(n):
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+
+def square(n):
+    return n * n
+
+a1 = 1
+fib_num = fibonacci(a1)
+square_fib_num = square(fib_num)
+print('The square of {a1}-th Fibonacci number is:', square_fib_num)
+
+
+The square of {a1}-th Fibonacci number is: 1
+3 summary_promptdecomposition+chainofthought
+def square_of_fibonacci(number):
+    fib_sequence = [0, 1]
+    while len(fib_sequence) <= number:
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+    fibonacci_number = fib_sequence[number]
+    return fibonacci_number ** 2
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def fibonacci(n):
+    if n <= 0:
+        return 0
+    elif n == 1:
+        return 1
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+
+def square_fibonacci(n):
+    fib = fibonacci(n)
+    return fib * fib
+
+
+n = 1
+print('The square of the {}-th Fibonacci number is {}'.format(n, square_fibonacci(n)))
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id5
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([-1,2,3,4])==3
+    assert candidate([-1,-2,,0,3,4])==2
+
+0 baseline
+def max_number(lst):
+    return max(lst, key=abs)
+
+
+1 summary_prompt+decomposition
+def get_max_number(numbers):
+    return max(numbers)
+
+
+2 summary_prompt+mtbp_orignal
+def max_number(A):
+    my_numbers = A
+    n_neg = len([num for num in my_numbers if num < 0])
+    n_pos = len([num for num in my_numbers if num > 0])
+    return max(n_neg, n_pos)
+
+
+3 summary_promptdecomposition+chainofthought
+def get_max_number(numbers):
+    return max(numbers)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def max_number(my_numbers):
+    n_neg = len([x for x in my_numbers if x < 0])
+    n_pos = len([x for x in my_numbers if x > 0])
+    return max(n_neg, n_pos)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id6
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(-10, 10, -20, 20)==[0.0, 0.0]
+    assert candidate(1,2,3,4)==[1.5, 3.5]
+
+0 baseline
+def calculate_means(a, b, c, d):
+    return [(a + b) / 2, (c + d) / 2]
+
+
+1 summary_prompt+decomposition
+def calculate_means(num1, num2, num3, num4):
+    mean1 = (num1 + num2) / 2
+    mean2 = (num3 + num4) / 2
+    return [mean1, mean2]
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_means(a1, a2, a3, a4):
+    import pandas as pd
+    df = pd.DataFrame({'Yes': [a1, a2], 'No': [a3, a4]})
+    means = df.mean()
+    return [means['Yes'], means['No']]
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_means(num1, num2, num3, num4):
+    mean1 = (num1 + num2) / 2
+    mean2 = (num3 + num4) / 2
+    return [mean1, mean2]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import pandas as pd
+
+def calculate_means(a1, a2, a3, a4):
+    df = pd.DataFrame({'Yes': [a1, a2], 'No': [a3, a4]})
+    means = df.mean()
+    return [means['Yes'], means['No']]
+
+
+reward_list= [1, 1, 0, 1, 0]
+################################################################################
+id_number= id7
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate({"a1": 5, "a2": 3, "a3": 0, "a4": 9}) == ["fizzbuzz", 1, 2, "buzz", 4, "fizz", "buzz", 7, 8, "buzz"]
+    assert candidate({"a1": 9, "a2": 3, "a3": 0, "a4": 2}) == ["fizzbuzz", 1, 2]
+
+0 baseline
+def fizzbuzz(a1, a2, a3, a4):
+    new_list = []
+    for num in range(a3, a4+1):
+        if num % a1 == 0 and num % a2 == 0:
+            new_list.append('fizzbuzz')
+        elif num % a1 == 0:
+            new_list.append('fizz')
+        elif num % a2 == 0:
+            new_list.append('buzz')
+        else:
+            new_list.append(num)
+    return new_list
+
+
+1 summary_prompt+decomposition
+def evaluate_fizzbuzz(a1, a2, a3, a4):
+    new_list = []
+    for num in range(a3, a4+1):
+        if num % a1 == 0 and num % a2 == 0:
+            new_list.append('fizzbuzz')
+        elif num % a1 == 0:
+            new_list.append('fizz')
+        elif num % a2 == 0:
+            new_list.append('buzz')
+        else:
+            new_list.append(num)
+    return new_list
+
+
+2 summary_prompt+mtbp_orignal
+def fizzbuzz(a1, a2, a3, a4):
+    new_list = []
+    for num in range(a3, a4+1):
+        if num % a1 == 0 and num % a2 == 0:
+            new_list.append('fizzbuzz')
+        elif num % a1 == 0:
+            new_list.append('fizz')
+        elif num % a2 == 0:
+            new_list.append('buzz')
+        else:
+            new_list.append(num)
+    return new_list
+
+
+3 summary_promptdecomposition+chainofthought
+def evaluate_fizzbuzz(a1, a2, a3, a4):
+    new_list = []
+    for num in range(a3, a4+1):
+        if num % a1 == 0 and num % a2 == 0:
+            new_list.append('fizzbuzz')
+        elif num % a1 == 0:
+            new_list.append('fizz')
+        elif num % a2 == 0:
+            new_list.append('buzz')
+        else:
+            new_list.append(num)
+    return new_list
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def fizzbuzz(a1, a2, a3, a4):
+    new_list = []
+    for i in range(a3, a4+1):
+        if i % a1 == 0 and i % a2 == 0:
+            new_list.append('fizzbuzz')
+        elif i % a1 == 0:
+            new_list.append('fizz')
+        elif i % a2 == 0:
+            new_list.append('buzz')
+        else:
+            new_list.append(i)
+    return new_list
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id8
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("Have free hours and love children? Drive kids to school, soccer practice and other activities") == [["Have", "free"], ["free", "hours"], ["hours", "and"], ["and", "love"], ["love", "children?"], ["children?", "Drive"], ["Drive", "kids"], ["kids", "to"], ["to", "school,"], ["school,", "soccer"], ["soccer", "practice"], ["practice", "and"], ["and", "other"], ["other", "activities."]]
+0 baseline
+def split_string(input_string):
+    return input_string.split()
+
+
+1 summary_prompt+decomposition
+def split_string_into_words(input_string):
+    words = input_string.split()
+    binary_list = []
+    for i in range(len(words) - 1):
+        binary_list.append(words[i] | words[i+1])
+    return binary_list
+
+
+2 summary_prompt+mtbp_orignal
+def split_string(input_string):
+    words = input_string.split()
+    return [words[i] + ' ' + words[i+1] for i in range(len(words)-1)]
+
+
+3 summary_promptdecomposition+chainofthought
+def split_string_into_words(input_string):
+    words = input_string.split()
+    binary_list = []
+    for i in range(len(words) - 1):
+        binary_list.append(words[i] | words[i+1])
+    return binary_list
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def split_string_into_words(input_string):
+    return input_string.split()
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id9
+
+
+mark:False
+
+
+test code
+def check(candidate):
+  assert candidate({"a1": [3, 5, 4], "a2": [3, 1, 1], "a3": [1, 2, 3], "a4": [0, 4, 4]}) == "Kevin"
+  
+0 baseline
+def find_highest_notes(names, notes):
+    return names[notes.index(max(notes))]
+
+
+1 summary_prompt+decomposition
+def find_highest_note_key(names, notes):
+    max_note = notes[0]
+    max_key = names[0]
+    for i in range(1, len(notes)):
+        if notes[i] > max_note:
+            max_note = notes[i]
+            max_key = names[i]
+    return max_key
+
+
+2 summary_prompt+mtbp_orignal
+def find_highest_note_name(notes):
+    my_notes = {
+        'Kevin': notes['a1'],
+        'John': notes['a2'],
+        'Mike': notes['a3'],
+        'Mitch': notes['a4']
+    }
+
+    def get_top_note_name(notes):
+        top_note = max(notes)
+        return {
+            'name': notes['name'],
+            'top_note': top_note
+        }
+
+    my_list = [get_top_note_name({'name': name, 'notes': notes}) for name, notes in my_notes.items()]
+    top_name = max(my_list, key=lambda x: x['top_note'])['name']
+    return top_name
+
+
+3 summary_promptdecomposition+chainofthought
+def find_closest_integer(array):
+    if len(array) == 0:
+        return None
+    average = sum(array) / len(array)
+    closest_integer = array[0]
+    for num in array:
+        if abs(num - average) < abs(closest_integer - average):
+            closest_integer = num
+        elif abs(num - average) == abs(closest_integer - average):
+            closest_integer = min(num, closest_integer)
+    return closest_integer
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_highest_notes(notes):
+    my_notes = {
+        "Kevin": [1, 2, 3],
+        "John": [4, 5, 6],
+        "Mike": [8, 8, 8],
+        "Mitch": [8, 2, 1]
+    }
+    my_list = []
+    for name, note in my_notes.items():
+        top_note = max(note)
+        my_list.append({"name": name, "top_note": top_note})
+    top_name = max(my_list, key=lambda x: x["top_note"])["name"]
+    return top_name
+
+
+reward_list= [0, 0, 1, 0, 0]
+################################################################################
+id_number= id10
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(0xAA) == 170
+    assert candidate(0xAF) == 175
+0 baseline
+def hex_to_binary(hex_num):
+    return bin(int(hex_num, 16))[2:]
+
+
+1 summary_prompt+decomposition
+def hex_to_binary(hex_number):
+    binary = ''
+    for digit in hex_number:
+        if digit == '0':
+            binary += '0000'
+        elif digit == '1':
+            binary += '0001'
+        elif digit == '2':
+            binary += '0010'
+        elif digit == '3':
+            binary += '0011'
+        elif digit == '4':
+            binary += '0100'
+        elif digit == '5':
+            binary += '0101'
+        elif digit == '6':
+            binary += '0110'
+        elif digit == '7':
+            binary += '0111'
+        elif digit == '8':
+            binary += '1000'
+        elif digit == '9':
+            binary += '1001'
+        elif digit == 'A':
+            binary += '1010'
+        elif digit == 'B':
+            binary += '1011'
+        elif digit == 'C':
+            binary += '1100'
+        elif digit == 'D':
+            binary += '1101'
+        elif digit == 'E':
+            binary += '1110'
+        elif digit == 'F':
+            binary += '1111'
+    return binary
+
+
+2 summary_prompt+mtbp_orignal
+def to_binary(hex_num):
+    return bin(hex_num)[2:]
+
+def to_hex(binary_num):
+    return hex(int(binary_num, 2))
+
+my_hex = 0xFF
+my_binary = to_binary(my_hex)
+result = to_hex(my_binary)
+print(result)
+
+
+0xff
+3 summary_promptdecomposition+chainofthought
+def hex_to_binary(hex_number):
+    binary = ''
+    for digit in hex_number:
+        if digit == '0':
+            binary += '0000'
+        elif digit == '1':
+            binary += '0001'
+        elif digit == '2':
+            binary += '0010'
+        elif digit == '3':
+            binary += '0011'
+        elif digit == '4':
+            binary += '0100'
+        elif digit == '5':
+            binary += '0101'
+        elif digit == '6':
+            binary += '0110'
+        elif digit == '7':
+            binary += '0111'
+        elif digit == '8':
+            binary += '1000'
+        elif digit == '9':
+            binary += '1001'
+        elif digit == 'A':
+            binary += '1010'
+        elif digit == 'B':
+            binary += '1011'
+        elif digit == 'C':
+            binary += '1100'
+        elif digit == 'D':
+            binary += '1101'
+        elif digit == 'E':
+            binary += '1110'
+        elif digit == 'F':
+            binary += '1111'
+    return binary
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def to_binary(hex_num):
+    return bin(int(hex_num, 16))[2:]
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id11
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate(a1 = ["a", "b"], a2 = [1, 2], a3 = "inverted") == True
+    assert candidate(a1 = ["a", "b", "c"], a2 = [1, 2, -1], a3 = "") == False
+    assert candidate(a1 = ["a", "b", "c"], a2 = [1, 2, -1], a3 = "inverted") == True
+    assert candidate(a1 = ["1"], a2 = [1], a3 = "") == False
+
+0 baseline
+def check_inverted_dict(a1, a2, a3):
+    dic1 = dict(zip(a1, a2))
+    dic2 = dict(dic1)
+    return dic2 == {v: k for k, v in dic1.items()}
+
+
+1 summary_prompt+decomposition
+def check_inverted_dict(a1, a2, a3):
+    dic1 = dict(zip(a1, a2))
+    dic2 = dict(dic1)
+    inverted_dic1 = {v: k for k, v in dic1.items()}
+    is_inverted = dic2 == inverted_dic1
+    return is_inverted
+
+
+2 summary_prompt+mtbp_orignal
+def invert(my_dict):
+    return {v: k for k, v in my_dict.items()}
+
+def is_inverted(dict1, dict2):
+    return dict1 == invert(dict2)
+
+my_dict = dict(zip(a1, a2))
+my_dict2 = dict(my_dict)
+print(is_inverted(my_dict, my_dict2))
+
+
+3 summary_promptdecomposition+chainofthought
+def assign_keys_values(a1, a2):
+    dic1 = dict(zip(a1, a2))
+    dic2 = dict(dic1)
+    inverted_dic1 = {v: k for k, v in dic1.items()}
+    is_inverted = dic2 == inverted_dic1
+    return is_inverted
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def invert(my_dict):
+    return {v: k for k, v in my_dict.items()}
+
+def is_inverted(dict1, dict2):
+    return dict1 == invert(dict2)
+
+my_dict = dict(zip(a1, a2))
+my_dict2 = invert(my_dict)
+print(is_inverted(my_dict, my_dict2))
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id12
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(a1 = "Paul Smith", a2 = 50, a3 = 160, a4 = 60, a5 = "weight") == 60
+    assert candidate(a1 = "Paul Smith", a2 = 50, a3 = 160, a4 = 60, a5 = "height") == 160
+    assert candidate(a1 = "Herr Schmidth Gold", a2 = 50, a3 = 210, a4 = 60, a5 = "height") == 210
+    assert candidate(a1 = "Paul Smith", a2 = 5, a3 = 160, a4 = 60, a5 = "age") == 5
+
+0 baseline
+class Player:
+    def __init__(self, name, age, height, weight):
+        self.name = name
+        self.age = age
+        self.height = height
+        self.weight = weight
+
+    def get_attribute(self, attribute):
+        if attribute == 'age':
+            return self.age
+        elif attribute == 'height':
+            return self.height
+        elif attribute == 'weight':
+            return self.weight
+
+player = Player('David Jones', 25, 175, 75)
+player.get_attribute('age')
+
+
+1 summary_prompt+decomposition
+class Player:
+    def __init__(self, name, age, height, weight):
+        self.name = name
+        self.age = age
+        self.height = height
+        self.weight = weight
+
+    def get_attribute_a5(self):
+        return self.a5
+
+
+2 summary_prompt+mtbp_orignal
+class Player:
+    def __init__(self, name, age, height, weight):
+        self.name = name
+        self.age = age
+        self.height = height
+        self.weight = weight
+
+    def get_age(self):
+        return f"{self.name} is age {self.age}"
+
+    def get_height(self):
+        return f"{self.name} is {self.height} cm"
+
+    def get_weight(self):
+        return f"{self.name} weighs {self.weight} kg"
+
+player = Player("David Jones", 25, 175, 75)
+result = player.get_age()
+
+
+3 summary_promptdecomposition+chainofthought
+def closest_integer(array):
+    if len(array) == 0:
+        return None
+    average = sum(array) / len(array)
+    closest = array[0]
+    for num in array:
+        if abs(num - average) < abs(closest - average):
+            closest = num
+        elif abs(num - average) == abs(closest - average):
+            closest = min(num, closest)
+    return closest
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+class Player:
+    def __init__(self, name, age, height, weight):
+        self.name = name
+        self.age = age
+        self.height = height
+        self.weight = weight
+
+    def get_age(self):
+        return f"{self.name} is age {self.age}"
+
+    def get_height(self):
+        return f"{self.name} is {self.height} cm"
+
+    def get_weight(self):
+        return f"{self.name} weighs {self.weight} kg"
+
+player = Player("David Jones", 25, 175, 75)
+result = player.get_age()
+result
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id13
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([-123, 2, 3, 12]) == -123
+    assert candidate([1]) == 1
+    assert candidate([-12, 1]) == -12
+    assert candidate([1, 22, 333, 4444, -55555]) == -55555
+
+0 baseline
+def longest_number(numbers):
+    return max(numbers)
+
+
+1 summary_prompt+decomposition
+def find_longest_number(numbers):
+    longest_number = numbers[0]
+    for number in numbers[1:]:
+        if len(number) > len(longest_number):
+            longest_number = number
+    return longest_number
+
+
+2 summary_prompt+mtbp_orignal
+def num_len(num):
+    return len(str(num))
+
+my_list = [1, 2, 3, 12]
+
+def longest_number(my_list):
+    return max(my_list, key=num_len)
+
+
+3 summary_promptdecomposition+chainofthought
+def find_longest_number(numbers):
+    longest_number = numbers[0]
+    for number in numbers:
+        if len(number) > len(longest_number):
+            longest_number = number
+    return longest_number
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def num_len(num):
+    return len(str(num))
+
+my_list = [1, 2, 3, 12]
+
+longest_num = max(my_list, key=num_len)
+
+return longest_num
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id14
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate(2) == 4
+    assert candidate(3) == 6
+    assert candidate(4) == 8
+    assert candidate(5) == 10
+
+0 baseline
+def double_number(num):
+    return num * 2
+
+
+1 summary_prompt+decomposition
+def print_double(number):
+    double = number * 2
+    print(double)
+
+
+4
+2 summary_prompt+mtbp_orignal
+def double_number(num):
+    return num * 2
+
+
+3 summary_promptdecomposition+chainofthought
+def find_closest_integer(array):
+    if len(array) == 0:
+        return None
+    average = sum(array) / len(array)
+    closest = array[0]
+    for num in array:
+        if abs(num - average) < abs(closest - average):
+            closest = num
+        elif abs(num - average) == abs(closest - average):
+            closest = min(num, closest)
+    return closest
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def double_number(num):
+    return num * 2
+
+
+reward_list= [1, 0, 1, 0, 1]
+################################################################################
+id_number= id15
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("asdfghjkl") == ["asdfghjkl", "cufhijlmn"]
+    assert candidate("gf") == ["gf", "ih"]
+    assert candidate("Hello World") == ["Hello World", "Hgnnq Wqtnf"]
+    assert candidate("This is a LONG string for our encryption algOrithm.") == ["This is a LONG string for our encryption algOrithm.", "Tjku ku c LONG uvtkpi hqt qwt gpetarvkqp cniOtkvjo."]
+
+0 baseline
+def shift_string(string):
+    return [string, ''.join(chr((ord(c) - 97 + 2) % 26 + 97) for c in string)]
+
+
+1 summary_prompt+decomposition
+def shift_down_string(string):
+    original_string = string
+    shifted_string = ''
+    for char in string:
+        if char.isalpha():
+            shifted_char = chr((ord(char.lower()) - 97 + 2) % 26 + 97)
+            if char.isupper():
+                shifted_char = shifted_char.upper()
+            shifted_string += shifted_char
+        else:
+            shifted_string += char
+    return [original_string, shifted_string]
+
+
+2 summary_prompt+mtbp_orignal
+def encrypt(string):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted_string = ''
+    for char in string:
+        if char in alphabet:
+            index = (alphabet.index(char) + 2) % 26
+            encrypted_string += alphabet[index]
+        else:
+            encrypted_string += char
+    return encrypted_string
+
+
+def decrypt(string):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    decrypted_string = ''
+    for char in string:
+        if char in alphabet:
+            index = (alphabet.index(char) - 2) % 26
+            decrypted_string += alphabet[index]
+        else:
+            decrypted_string += char
+    return decrypted_string
+
+
+original_text = '{a1}'
+encrypted_text = encrypt(original_text)
+restored_text = decrypt(encrypted_text)
+my_result = [restored_text, encrypted_text]
+print(my_result)
+
+
+['{a1}', '{c1}']
+3 summary_promptdecomposition+chainofthought
+def shift_down_string(string):
+    original_string = string
+    shifted_string = ''
+    for char in string:
+        if char.isalpha():
+            shifted_char = chr((ord(char.lower()) - 97 + 2) % 26 + 97)
+            if char.isupper():
+                shifted_char = shifted_char.upper()
+            shifted_string += shifted_char
+        else:
+            shifted_string += char
+    return [original_string, shifted_string]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def encrypt(string):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    encrypted_string = ''
+    for char in string:
+        if char in alphabet:
+            index = (alphabet.index(char) + 2) % 26
+            encrypted_string += alphabet[index]
+        else:
+            encrypted_string += char
+    return encrypted_string
+
+
+def decrypt(string):
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    decrypted_string = ''
+    for char in string:
+        if char in alphabet:
+            index = (alphabet.index(char) - 2) % 26
+            decrypted_string += alphabet[index]
+        else:
+            decrypted_string += char
+    return decrypted_string
+
+
+original_text = 'hi'
+encrypted_text = encrypt(original_text)
+restored_text = decrypt(encrypted_text)
+my_result = [restored_text, encrypted_text]
+print(my_result)
+
+
+['hi', 'jk']
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id16
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("name", "1, 2, 2", "C") == 3
+    assert candidate("id", "2, 2, 2", "C") == 1
+    assert candidate("id", "1, 2, 3", "C") == 3
+    assert candidate("name",  "1, 1, 1", "B") == 2
+
+0 baseline
+class Person:
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+
+    def __hash__(self):
+        return hash((self.name, self.id))
+
+    def __eq__(self, other):
+        return (self.name, self.id) == (other.name, other.id)
+
+persons = [Person('id', 1), Person('2', 2), Person('C', 2)]
+unique_persons = set(persons)
+print(len(unique_persons))
+
+
+3
+1 summary_prompt+decomposition
+class Person:
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+persons = [Person('name1', 1), Person('name2', 2), Person('name3', 2)]
+unique_persons = set(persons)
+print(len(unique_persons))
+
+
+2
+2 summary_prompt+mtbp_orignal
+class Person:
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+persons = [Person('Person A', 1), Person('Person B', 2), Person('Person C', 2)]
+unique_persons = set(persons)
+print(len(unique_persons))
+
+
+
+2
+3 summary_promptdecomposition+chainofthought
+class Person:
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+persons = [Person('name1', 1), Person('name2', 2), Person('name3', 2)]
+unique_persons = set(persons)
+print(len(unique_persons))
+
+
+2
+4 summary_prompt+mtbp_orignal+chainofthought
+class Person:
+    def __init__(self, name, id):
+        self.name = name
+        self.id = id
+
+    def __hash__(self):
+        return hash(self.id)
+
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+
+persons = [Person('Person A', 1), Person('Person B', 2), Person('Person C', 2)]
+unique_persons = set(persons)
+print(len(unique_persons))
+
+
+2
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id17
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(1) == [1, "1"]
+    assert candidate(123) == [123, "123"]
+    assert candidate(2344) == [2344, "2344"]
+    assert candidate(-1) == [-1, "-1"]
+
+0 baseline
+def number_to_list(num):
+    return [num, str(num)]
+
+
+1 summary_prompt+decomposition
+def number_to_list(number):
+    number_str = str(number)
+    result = [number, number_str]
+    return result
+
+
+2 summary_prompt+mtbp_orignal
+def int_to_str(num):
+    return str(num)
+
+def str_to_int(num):
+    return int(num)
+
+a1 = 29348
+
+my_result = [int_to_str(a1), str_to_int(str(a1))]
+
+return my_result
+
+
+3 summary_promptdecomposition+chainofthought
+def number_to_list(number):
+    number_str = str(number)
+    result = [number, number_str]
+    return result
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def int_to_str(num):
+    return str(num)
+
+def str_to_int(string):
+    return int(string)
+
+my_result = [int_to_str({a1}), str_to_int("{a1}")]
+
+return my_result
+
+
+reward_list= [1, 1, 0, 1, 0]
+################################################################################
+id_number= id18
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate("Hello Foo") == "HELLO FOO"
+    assert candidate("Hello WORLD") == "HELLO WORLD"
+    assert candidate("foo BAR") == "FOO BAR"
+    assert candidate("This is a long string") == "THIS IS A LONG STRING"
+
+0 baseline
+def morse_code_to_string(s):
+    return ''.join([MORSE_CODE_DICT.get(i) for i in s.split()])
+
+
+1 summary_prompt+decomposition
+def decode_morse_code(morse_code):
+    morse_code_dict = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..'}
+    decoded_string = ''
+    for char in morse_code:
+        if char == ' ':
+            decoded_string += ' '
+        else:
+            for key, value in morse_code_dict.items():
+                if value == char:
+                    decoded_string += key
+    return decoded_string.upper()
+
+
+2 summary_prompt+mtbp_orignal
+def encode_morse(text):
+    chars_to_dots = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', ' ': ' ', '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '&': '.-...', "'": '.----.', '@': '.--.-.', ')': '-.--.-', '(': '-.--.', ':': '---...', ',': '--..--', '=': '-...-', '!': '-.-.--', '.': '.-.-.-', '-': '-....-', '+': '.-.-.', '"': '.-..-.', '?': '..--..', '/': '-..-.'}
+    morse_code = ''
+    for char in text:
+        morse_code += chars_to_dots[char.upper()]
+    return morse_code
+
+def decode_morse(morse_code):
+    dots_to_chars = {value: key for key, value in chars_to_dots.items()}
+    decoded_text = ''
+    for code in morse_code.split(' '):
+        decoded_text += dots_to_chars[code]
+    return decoded_text
+
+a1 = 'Hello World'
+morse_code = encode_morse(a1)
+decoded_text = decode_morse(morse_code)
+print(decoded_text)
+
+
+3 summary_promptdecomposition+chainofthought
+def decode_morse_code(morse_code):
+    morse_dict = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..'}
+    decoded_string = ''
+    for char in morse_code:
+        if char == ' ':
+            decoded_string += ' '
+        else:
+            for key, value in morse_dict.items():
+                if value == char:
+                    decoded_string += key
+    return decoded_string.upper()
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def encode_morse(string):
+    chars_to_dots = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', ' ': ' ', '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '&': '.-...', "'": '.----.', '@': '.--.-.', ')': '-.--.-', '(': '-.--.', ':': '---...', ',': '--..--', '=': '-...-', '!': '-.-.--', '.': '.-.-.-', '-': '-....-', '+': '.-.-.', '"': '.-..-.', '?': '..--..', '/': '-..-.'}
+    morse_code = ''
+    for char in string:
+        morse_code += chars_to_dots[char.upper()]
+    return morse_code
+
+def decode_morse(morse_code):
+    dots_to_chars = {v: k for k, v in chars_to_dots.items()}
+    decoded_text = ''
+    for code in morse_code.split(' '):
+        decoded_text += dots_to_chars[code]
+    return decoded_text
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id19
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(a1="[1, 11, 111]", a2=122) == [1, 2]
+    assert candidate(a1="[-1, 0, 2, 4]", a2=3) == [0, 3]
+    assert candidate(a1="[10, 20, 30, 40]", a2=70) == [2, 3]
+    assert candidate(a1="[-1, -1, 123, -123]", a2=0) == [2, 3]
+
+0 baseline
+def twoSum(nums, target):
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            if nums[i] + nums[j] == target:
+                return [i, j]
+
+
+1 summary_prompt+decomposition
+def two_sum_indices(nums, target):
+    for i in range(len(nums)):
+        diff = target - nums[i]
+        if diff in nums[i+1:]:
+            return [i, nums.index(diff, i+1)]
+    return []
+
+
+2 summary_prompt+mtbp_orignal
+def two_sum(nums, target):
+    for i in range(len(nums)):
+        for j in range(i+1, len(nums)):
+            if nums[i] + nums[j] == target:
+                return [i, j]
+
+
+3 summary_promptdecomposition+chainofthought
+def two_sum_indices(nums, target):
+    for i in range(len(nums)):
+        diff = target - nums[i]
+        if diff in nums[i+1:]:
+            return [i, nums.index(diff, i+1)]
+    return []
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def two_sum(a1, a2):
+    for i in range(len(a1)):
+        for j in range(i+1, len(a1)):
+            if a1[i] + a1[j] == a2:
+                return [i, j]
+
+a1 = [0, 1, 2, 3]
+a2 = 4
+print(two_sum(a1, a2))
+
+
+[1, 3]
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id20
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate(20) == "(-20, -20), (20, 20)"
+    assert candidate(30) == "(-30, -30), (30, 30)"
+    assert candidate(40) == "(-40, -40), (40, 40)"
+    assert candidate(50) == "(-50, -50), (50, 50)"
+
+0 baseline
+import numpy as np
+from scipy.stats import multivariate_normal
+
+# Define function to sample points
+
+def sample_points(a1):
+    mean1 = (a1, a1)
+    mean2 = (-a1, -a1)
+    cov = [[1, 0], [0, 1]]
+    points1 = np.random.multivariate_normal(mean1, cov, 100)
+    points2 = np.random.multivariate_normal(mean2, cov, 100)
+    points = np.concatenate((points1, points2))
+    return points
+
+# Sample points with a1 = 10
+points = sample_points(10)
+
+# Define function for k-means clustering
+
+def k_means_clustering(points):
+    centroids, _ = kmeans2(points, 2, minit='points')
+    c1 = tuple(np.round(centroids[0]).astype(int))
+    c2 = tuple(np.round(centroids[1]).astype(int))
+    return c1, c2
+
+# Perform k-means clustering on points
+c1, c2 = k_means_clustering(points)
+
+# Print centroids
+print(f"({c1[0]}, {c1[1]}), ({c2[0]}, {c2[1]})")
+
+
+1 summary_prompt+decomposition
+import numpy as np
+
+
+def k_means_clustering(iterations):
+    points1 = np.random.multivariate_normal([a1, a1], [[1, 0], [0, 1]], 100)
+    points2 = np.random.multivariate_normal([-a1, -a1], [[1, 0], [0, 1]], 100)
+    data = np.concatenate((points1, points2))
+    centroids = np.random.rand(2, 2) * 20 - 10
+    for _ in range(iterations):
+        distances = np.linalg.norm(data[:, np.newaxis] - centroids, axis=2)
+        labels = np.argmin(distances, axis=1)
+        for i in range(2):
+            centroids[i] = np.mean(data[labels == i], axis=0)
+    c1 = tuple(map(int, np.round(centroids[0])))
+    c2 = tuple(map(int, np.round(centroids[1])))
+    return c1, c2
+
+
+2 summary_prompt+mtbp_orignal
+import numpy as np
+
+
+def sample_points(n, x_mean, y_mean, x_std, y_std):
+    return np.random.multivariate_normal([x_mean, y_mean], [[x_std, 0], [0, y_std]], n)
+
+
+points1 = sample_points(100, {a1}, {a1}, 1, 1)
+points2 = sample_points(100, -{a1}, -{a1}, 1, 1)
+data_points = np.concatenate((points1, points2))
+
+
+def k_means_clustering(data, n_iterations, n_clusters):
+    centroids = np.random.rand(n_clusters, 2) * 20 - 10
+    for _ in range(n_iterations):
+        distances = np.linalg.norm(data[:, np.newaxis] - centroids, axis=2)
+        labels = np.argmin(distances, axis=1)
+        for i in range(n_clusters):
+            centroids[i] = np.mean(data[labels == i], axis=0)
+    return centroids
+
+
+my_centroids = k_means_clustering(data_points, 100, 2)
+
+c1 = np.round(my_centroids[np.argmin(my_centroids.sum(axis=1))]).astype(int)
+c2 = np.round(my_centroids[np.argmax(my_centroids.sum(axis=1))]).astype(int)
+
+print(f"({c1[0]}, {c1[1]}), ({c2[0]}, {c2[1]})")
+
+
+3 summary_promptdecomposition+chainofthought
+def k_means_clustering(iterations):
+    import numpy as np
+    points1 = np.random.multivariate_normal([a1, a1], [[1, 0], [0, 1]], 100)
+    points2 = np.random.multivariate_normal([-a1, -a1], [[1, 0], [0, 1]], 100)
+    data = np.concatenate((points1, points2))
+    c1 = np.mean(data[data[:, 0] < 0], axis=0)
+    c2 = np.mean(data[data[:, 0] >= 0], axis=0)
+    c1 = np.round(c1).astype(int)
+    c2 = np.round(c2).astype(int)
+    return c1, c2
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sample_points(n, x_mean, y_mean, x_std, y_std):
+    return np.random.multivariate_normal([x_mean, y_mean], [[x_std, 0], [0, y_std]], n)
+
+points1 = sample_points(100, {a1}, {a1}, 1, 1)
+points2 = sample_points(100, -{a1}, -{a1}, 1, 1)
+data = np.concatenate((points1, points2))
+
+def k_means_clustering(data, n_iterations, n_clusters):
+    kmeans = KMeans(n_clusters=n_clusters, max_iter=n_iterations)
+    kmeans.fit(data)
+    return kmeans.cluster_centers_
+
+my_centroids = k_means_clustering(data, 100, 2)
+
+c1 = np.round(my_centroids[my_centroids[:, 0] < 0][0]).astype(int)
+c2 = np.round(my_centroids[my_centroids[:, 0] >= 0][0]).astype(int)
+
+print(f"({c1[0]}, {c1[1]}), ({c2[0]}, {c2[1]})")
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id21
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([2e+100, 5e+100, -11, 10]) == [7e+100, -11]
+    assert candidate([]) == [0, 0]
+    assert candidate([-5, 1, 6, -25, -36, 6]) == [-24, -29]
+    assert candidate([73, 4, 14, 95, 69, 57, 82, 4, 75, 50, 91, 4, 83, 89, 61, 67, 53, 54, 48, 10]) == [270, 813]
+
+0 baseline
+def sum_even_odd(nums):
+    even_sum = 0
+    odd_sum = 0
+    for num in nums:
+        if num % 2 == 0:
+            even_sum += num
+        else:
+            odd_sum += num
+    return [even_sum, odd_sum]
+
+
+1 summary_prompt+decomposition
+def calculate_even_odd_sum(numbers):
+    sum_of_even_numbers = 0
+    sum_of_odd_numbers = 0
+    for number in numbers:
+        if number % 2 == 0:
+            sum_of_even_numbers += number
+        else:
+            sum_of_odd_numbers += number
+    return [sum_of_even_numbers, sum_of_odd_numbers]
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_sum(numbers):
+    even = sum([num for num in numbers if num % 2 == 0])
+    odd = sum([num for num in numbers if num % 2 != 0])
+    my_result = [even, odd]
+    return my_result
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_even_odd_sum(numbers):
+    sum_even = 0
+    sum_odd = 0
+    for num in numbers:
+        if num % 2 == 0:
+            sum_even += num
+        else:
+            sum_odd += num
+    return [sum_even, sum_odd]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sum_even_odd(numbers):
+    even = sum([num for num in numbers if num % 2 == 0])
+    odd = sum([num for num in numbers if num % 2 != 0])
+    my_result = [even, odd]
+    return my_result
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id22
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(["a", 0, 0, "b", "c", "d", 0, 1, 0, 1, 0, 3, 0, 1, 9, 0, 0, 0, 0, 9]) == ["a", "b", "c", "d", 1, 1, 3, 1, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    assert candidate([0]) == [0]
+    assert candidate([-1, 0, 1e-05, 0, 1e-30, 0]) == [-1, 1e-05, 1e-30, 0, 0, 0]
+    assert candidate([0, 1, null, 2, false, 1, 0]) == [1, null, 2, false, 1, 0, 0]
+
+0 baseline
+def move_zeros(lst):
+    return sorted(lst, key=lambda x: x == 0)
+
+
+
+1 summary_prompt+decomposition
+def move_zeros_to_end(lst):
+    zeros = []
+    non_zeros = []
+    for num in lst:
+        if num == 0:
+            zeros.append(num)
+        else:
+            non_zeros.append(num)
+    return non_zeros + zeros
+
+
+2 summary_prompt+mtbp_orignal
+def move_zeros(lst):
+    elements = lst
+    zero_count = elements.count(0)
+    non_zero = [x for x in elements if x != 0]
+    result = non_zero + [0] * zero_count
+    return result
+
+
+3 summary_promptdecomposition+chainofthought
+def move_zeros_to_end(lst):
+    zeros = []
+    non_zeros = []
+    for num in lst:
+        if num == 0:
+            zeros.append(num)
+        else:
+            non_zeros.append(num)
+    return non_zeros + zeros
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def move_zeros(lst):
+    elements = lst
+    zero_count = elements.count(0)
+    non_zero = [x for x in elements if x != 0]
+    result = non_zero + [0] * zero_count
+    return result
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id23
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate({"array": "consisting of 1000 randomly sampled integers ranging from 0 to 10",  1000}) == [4.8025, 5.1975]
+    assert candidate({"array": "consisting of 1000 randomly sampled integers ranging from 0 to 10",  10000}) == [4.8025, 5.1975]
+    assert candidate({"array": "consisting of 1000 uniformly sampled floats in [0, 1)", "n": 1000}) == [0.4825, 0.5175]
+    assert candidate({"array": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1], "n": 100}) == [1, 1]
+
+0 baseline
+import numpy as np
+
+# Your code here
+
+# Make sure to only include the code without any explanations or additional text
+
+def sum(m,n):
+    k = m+n
+    return k
+
+
+1 summary_prompt+decomposition
+def bootstrap_confidence_interval(data):
+    bootstrap_samples = []
+    num_samples = 1000
+
+    for _ in range(num_samples):
+        bootstrap_sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_samples.append(bootstrap_sample)
+
+    sample_statistics = [np.mean(sample) for sample in bootstrap_samples]
+    lower_bound = np.percentile(sample_statistics, 2.5)
+    upper_bound = np.percentile(sample_statistics, 97.5)
+
+    return lower_bound, upper_bound
+
+
+2 summary_prompt+mtbp_orignal
+import numpy as np
+
+
+def bootstrap_confidence_interval(array, n_times):
+    X = np.array(array)
+
+    def sample_with_replacement(X):
+        return np.random.choice(X, size=len(X), replace=True)
+
+    samples = np.stack([sample_with_replacement(X) for _ in range(n_times)])
+    mean = np.mean(samples, axis=1)
+    percentile = np.percentile(mean, [2.5, 97.5])
+
+    return percentile
+
+
+3 summary_promptdecomposition+chainofthought
+def bootstrap_confidence_interval(data):
+    bootstrap_samples = []
+    num_samples = 1000
+
+    for _ in range(num_samples):
+        bootstrap_sample = np.random.choice(data, size=len(data), replace=True)
+        bootstrap_samples.append(bootstrap_sample)
+
+    sample_statistics = [np.mean(sample) for sample in bootstrap_samples]
+    lower_bound = np.percentile(sample_statistics, 2.5)
+    upper_bound = np.percentile(sample_statistics, 97.5)
+
+    return lower_bound, upper_bound
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import numpy as np
+
+# Your code here
+
+# Make sure to remove any explanations or comments from the code
+
+def sum(m, n):
+    k = m + n
+    return k
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id24
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({"a": 2, "b": 8}) == 20
+    assert candidate({"a": 2, "b": 6}) == 12
+
+0 baseline
+def sum_even_digits(a, b):
+    return sum([int(digit) for digit in range(a, b+1) if int(digit) % 2 == 0])
+
+
+1 summary_prompt+decomposition
+def sum_even_digits(a, b):
+    sum = 0
+    for num in range(a, b+1):
+        for digit in str(num):
+            if int(digit) % 2 == 0:
+                sum += int(digit)
+    return sum
+
+
+2 summary_prompt+mtbp_orignal
+def sum_even_digits(a, b):
+    my_digits = []
+    for num in range(a, b+1):
+        for digit in str(num):
+            if int(digit) % 2 == 0:
+                my_digits.append(int(digit))
+    result = sum(my_digits)
+    return int(result)
+
+
+3 summary_promptdecomposition+chainofthought
+def sum_even_digits(a, b):
+    return sum(int(digit) for num in range(a, b+1) for digit in str(num) if int(digit) % 2 == 0)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sum_even_digits(a, b):
+    my_digits = [digit for digit in range(a, b+1) if digit % 2 == 0]
+    result = sum(my_digits)
+    return int(result)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id25
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([4, 0]) == 4
+    assert candidate([0]) == 0
+    assert candidate([0, 7, 6]) == 7
+    assert candidate([2, 4, 7, 20, 6]) == 18
+
+0 baseline
+def difference(lst):
+    return max(lst) - min(lst)
+
+
+1 summary_prompt+decomposition
+def find_difference(lst):
+    return max(lst) - min(lst)
+
+
+2 summary_prompt+mtbp_orignal
+def find_difference(lst):
+    my_max = max(lst)
+    my_min = min(lst)
+    difference = my_max - my_min
+    return difference
+
+
+3 summary_promptdecomposition+chainofthought
+def find_difference(lst):
+    return max(lst) - min(lst)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_difference(lst):
+    my_max = max(lst)
+    my_min = min(lst)
+    difference = my_max - my_min
+    return difference
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id26
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("abcdecadeCADE") == ["a", "b", "c", "d", "e"]
+    assert candidate("aaaaAAAAaaaa") == ["a"]
+    assert candidate("Jerry jERRY JeRRRY") == [" ", "e", "j", "r", "y"]
+    assert candidate("ddddc") == ["c", "d"]
+
+0 baseline
+def sort_letters(string):
+    return sorted(set(string.lower()))
+
+
+1 summary_prompt+decomposition
+def sort_letters(string):
+    lowercase_string = string.lower()
+    characters = list(lowercase_string)
+    sorted_characters = sorted(characters)
+    new_list = []
+    for letter in sorted_characters:
+        if letter not in new_list:
+            new_list.append(letter)
+    return new_list
+
+
+2 summary_prompt+mtbp_orignal
+def sort_letters(my_string):
+    my_string = "{A}"
+    my_string = my_string.lower()
+    chars = list(set(my_string))
+    chars.sort()
+    return chars
+
+
+3 summary_promptdecomposition+chainofthought
+def sort_letters(string):
+    lowercase = string.lower()
+    characters = list(lowercase)
+    sorted_characters = sorted(characters)
+    non_repeating_letters = []
+    for letter in sorted_characters:
+        if letter not in non_repeating_letters:
+            non_repeating_letters.append(letter)
+    return non_repeating_letters
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sort_letters(my_string):
+    my_string = my_string.lower()
+    chars = list(set(my_string))
+    chars.sort()
+    return chars
+
+
+reward_list= [1, 1, 0, 1, 1]
+################################################################################
+id_number= id27
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({"A": "ab", "B": "abcde"}) == "abcde"
+    assert candidate({"A": "a", "B": "aa"}) == "aa"
+    assert candidate({"A": "aaaaaaaaaa", "B": "cdeee"}) == "aaaaaaaaaa"
+    assert candidate({"A": "f", "B": "gg"}) == "gg"
+
+0 baseline
+def compare_strings(A, B):
+    return A if len(A) > len(B) else B
+
+
+1 summary_prompt+decomposition
+def compare_string_lengths(string_A, string_B):
+    if len(string_A) > len(string_B):
+        return string_A
+    elif len(string_B) > len(string_A):
+        return string_B
+    else:
+        return string_A
+
+
+
+2 summary_prompt+mtbp_orignal
+def len_str(string):
+    return len(string)
+
+a = 'abcde'
+b = 'ab'
+
+result = a if len_str(a) > len_str(b) else b
+print(result)
+
+
+abcde
+3 summary_promptdecomposition+chainofthought
+def compare_string_lengths(string_A, string_B):
+    if len(string_A) > len(string_B):
+        return string_A
+    elif len(string_B) > len(string_A):
+        return string_B
+    else:
+        return string_A
+
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def len_str(A, B):
+    a = A
+    b = B
+    def len_str(string):
+        return len(string)
+    len_a = len_str(a)
+    len_b = len_str(b)
+    result = a if len_a > len_b else b
+    return result
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id28
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(1.1) == 2
+    assert candidate(1000000.0000001) == 1000001
+    assert candidate(0.0101) == 101
+    assert candidate(100.5) == 105
+
+0 baseline
+def convert_float(number):
+    return int(number) + int(number % 1)
+
+
+1 summary_prompt+decomposition
+def convert_decimal_to_integer(number):
+    return int(number) + int(number % 1)
+
+
+2 summary_prompt+mtbp_orignal
+def convert_float_to_int(f):
+    a = int(f)
+    b = int((f - a) * 10)
+    return a + b
+
+
+3 summary_promptdecomposition+chainofthought
+def convert_decimal_to_integer(number):
+    decimal_part = int(number % 1)
+    integer_part = int(number)
+    return float(decimal_part + integer_part)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def convert_float_number(number):
+    f = number
+    a = int(f)
+    b = int((f - a) * 10)
+    return a + b
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id29
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("PaLm") == 1
+    assert candidate("PrEdictiOn") == 4
+    assert candidate("") == 0
+    assert candidate("ABC") == 1
+
+0 baseline
+def count_vowels(string):
+    return sum(1 for char in string if char.lower() in 'aeiou')
+
+
+1 summary_prompt+decomposition
+def count_vowels(string):
+    counter = 0
+    for char in string:
+        if char.lower() in ['a', 'e', 'i', 'o', 'u']:
+            counter += 1
+    return counter
+
+
+2 summary_prompt+mtbp_orignal
+def count_vowels(s):
+    my_string = s
+    my_string = my_string.lower()
+    count = 0
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    for char in my_string:
+        if char in vowels:
+            count += 1
+    return count
+
+
+3 summary_promptdecomposition+chainofthought
+def count_vowels(string):
+    counter = 0
+    for char in string:
+        if char.lower() in ['a', 'e', 'i', 'o', 'u']:
+            counter += 1
+    return counter
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def count_vowels(my_string):
+    my_string = my_string.lower()
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    count = 0
+    for char in my_string:
+        if char in vowels:
+            count += 1
+    return count
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id30
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(4) == 24
+    assert candidate(10) == 3628800
+    assert candidate(1) == 1
+    assert candidate(5) == 120
+
+0 baseline
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+
+1 summary_prompt+decomposition
+def factorial(n):
+    result = 1
+    for i in range(1, n+1):
+        result *= i
+    return result
+
+
+2 summary_prompt+mtbp_orignal
+def factorial(n):
+    f = n
+    lst = list(range(1, f+1))
+    factorial = 1
+    for num in lst:
+        factorial *= num
+    return factorial
+
+
+3 summary_promptdecomposition+chainofthought
+def factorial(n):
+    result = 1
+    for i in range(1, n+1):
+        result *= i
+    return result
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def factorial(n):
+    f = n
+    lst = list(range(1, f+1))
+    factorial = 1
+    for num in lst:
+        factorial *= num
+    return factorial
+
+
+reward_list= [0, 1, 1, 1, 1]
+################################################################################
+id_number= id31
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(5,7) == (11,3)
+    assert candidate(9,2) == (10,8)
+    assert candidate(1,1) == (1,1)
+    assert candidate(1000,1000) == (1999,1).
+0 baseline
+def triangle_edges(a, b):
+    return (a + b - 1, abs(a - b) + 1)
+
+
+1 summary_prompt+decomposition
+def calculate_third_edge(edge1, edge2):
+    min_length = max(edge1 + edge2 - 1, abs(edge1 - edge2) + 1)
+    max_length = edge1 + edge2
+    return (min_length, max_length)
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_third_edge(a, b):
+    two_edges = a + b
+    maximum_edge = two_edges - 1
+    minimum_edge = abs(a - b) + 1
+    my_tuple = (maximum_edge, minimum_edge)
+    return my_tuple
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_third_edge(edge1, edge2):
+    min_length = max(edge1 + edge2 - 1, abs(edge1 - edge2) + 1)
+    max_length = edge1 + edge2
+    return (min_length, max_length)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def calculate_third_edge(a, b):
+    two_edges = a + b
+    maximum_edge = two_edges - 1
+    minimum_edge = abs(a - b) + 1
+    my_tuple = (maximum_edge, minimum_edge)
+    return my_tuple
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id32
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(4) == 4
+    assert candidate(10) == 0
+    assert candidate(1) == 1
+    assert candidate(5) == 0
+0 baseline
+def factorial_remainder(n):
+    fact = 1
+    for i in range(1, n+1):
+        fact *= i
+    return fact % 10
+
+
+1 summary_prompt+decomposition
+def compute_factorial_remainder(n):
+    factorial = 1
+    for i in range(1, n+1):
+        factorial *= i
+    remainder = factorial % 10
+    print(remainder)
+
+
+4
+2 summary_prompt+mtbp_orignal
+def factorial_remainder(n):
+    def compute_factorial(num):
+        if num == 0:
+            return 1
+        else:
+            return num * compute_factorial(num-1)
+    factorial = compute_factorial(n)
+    remainder = factorial % 10
+    print(remainder)
+
+factorial_remainder(2)
+
+
+2
+4
+3 summary_promptdecomposition+chainofthought
+def compute_factorial_remainder(n):
+    factorial = 1
+    for i in range(1, n+1):
+        factorial *= i
+    remainder = factorial % 10
+    print(remainder)
+
+
+4
+4 summary_prompt+mtbp_orignal+chainofthought
+def factorial_remainder(n):
+    fact = 1
+    for i in range(1, n+1):
+        fact *= i
+    remainder = fact % 10
+    print(remainder)
+
+
+4
+reward_list= [1, 0, 0, 0, 0]
+################################################################################
+id_number= id33
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(4) == 6.28
+    assert candidate(1000) == 3135.31
+    assert candidate(10) == 25.13
+    assert candidate(100) == 307.88
+0 baseline
+def polygon_angle(n):
+    return round((n-2)*180/n, 2)
+
+
+1 summary_prompt+decomposition
+def compute_sum_of_internal_angles(n):
+    angle_degrees = (n - 2) * 180
+    angle_radians = angle_degrees * 3.14159 / 180
+    rounded_angle = round(angle_radians, 2)
+    print(rounded_angle)
+
+
+6.28
+2 summary_prompt+mtbp_orignal
+def compute_angle(n):
+    angle = (n-2) * 180
+    angle_in_radians = round(math.radians(angle), 2)
+    print(angle_in_radians)
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_sum_of_internal_angles(n):
+    angle_degrees = (n - 2) * 180
+    angle_radians = angle_degrees * 3.14 / 180
+    rounded_angle = round(angle_radians, 2)
+    print('The sum of internal angles in degrees for a regular polygon with', n, 'sides is', angle_degrees, 'degrees, which is approximately', rounded_angle, 'radians.')
+
+
+The sum of internal angles in degrees for a regular polygon with 4 sides is 360 degrees, which is approximately 6.28 radians.
+4 summary_prompt+mtbp_orignal+chainofthought
+def sum_internal_angles(n):
+    angle = (n-2) * 180
+    radians = angle * (math.pi/180)
+    rounded = round(radians, 2)
+    print(rounded)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id34
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(["2","4"]) ==6
+    assert candidate(["0","12"])==12
+    assert candidate(["50","100"])==150
+    assert candidate(["10000","1"]) ==10001
+0 baseline
+def sum_of_strings(arr):
+    return int(arr[0]) + int(arr[1])
+
+
+1 summary_prompt+decomposition
+def compute_sum_of_integers(strings):
+    num1 = int(strings[0])
+    num2 = int(strings[1])
+    return num1 + num2
+
+
+2 summary_prompt+mtbp_orignal
+def compute_sum(arr):
+    s1 = arr[0]
+    s2 = arr[1]
+    s = int(s1) + int(s2)
+    return s
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_sum_of_integers(strings):
+    return int(strings[0]) + int(strings[1])
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_sum(strings):
+    s1 = strings[0]
+    s2 = strings[1]
+    s = int(s1) + int(s2)
+    return s
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id35
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([17, 16, 15, 10, 11, 12]) ==108
+    assert candidate([1,2]) ==3
+    assert candidate([10]) ==10
+    assert candidate([1,100]) ==5050
+0 baseline
+def sum_between_max_min(arr):
+    m1 = min(arr)
+    m2 = max(arr)
+    return sum(arr[arr.index(m1):arr.index(m2)+1])
+
+
+1 summary_prompt+decomposition
+def calculate_sum_between(array):
+    m1 = min(array)
+    m2 = max(array)
+    total_sum = 0
+    for num in array:
+        if m1 <= num <= m2:
+            total_sum += num
+    return total_sum
+
+
+2 summary_prompt+mtbp_orignal
+def find_sum(l):
+    lst = list(l)
+    ma = max(lst)
+    mi = min(lst)
+    result = sum(range(mi, ma+1))
+    return result
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_sum_between(array):
+    m1 = min(array)
+    m2 = max(array)
+    total_sum = 0
+    for num in array:
+        if m1 <= num <= m2:
+            total_sum += num
+    return total_sum
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_sum(lst):
+    ma = max(lst)
+    mi = min(lst)
+    lst_range = list(range(mi, ma+1))
+    return sum(lst_range)
+
+
+reward_list= [0, 0, 1, 0, 1]
+################################################################################
+id_number= id36
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(["fan","forsook"])==0
+    assert candidate(["spout","shout"])==2
+ assert candidate(["happiness","fitness"])==2
+    assert candidate(["code","fork"])==1 
+0 baseline
+def count_common_vowels(str1, str2):
+    vowels = 'aeiou'
+    count = 0
+    for char in set(str1) & set(str2):
+        if char in vowels:
+            count += 1
+    return count
+
+
+1 summary_prompt+decomposition
+def count_common_vowel_characters(string1, string2):
+    count = 0
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    for char in string1:
+        if char in vowels and char in string2:
+            count += 1
+    return count
+
+
+2 summary_prompt+mtbp_orignal
+def shared_characters(s1, s2):
+    def find_shared_chars(s1, s2):
+        return ''.join(set(s1) & set(s2))
+
+    def count_vowels(s):
+        return sum(1 for char in s if char.lower() in 'aeiou')
+
+    shared_chars = find_shared_chars(s1, s2)
+    num_vowels = count_vowels(shared_chars)
+    return num_vowels
+
+
+3 summary_promptdecomposition+chainofthought
+def count_common_vowel_characters(string1, string2):
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    count = 0
+    for char in string1:
+        if char in vowels and char in string2:
+            count += 1
+    return count
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def shared_vowels(s1, s2):
+    def get_shared_chars(s1, s2):
+        return ''.join(set(s1) & set(s2))
+
+    def count_vowels(s):
+        vowels = 'aeiou'
+        return sum(1 for char in s if char.lower() in vowels)
+
+    shared_chars = get_shared_chars(s1, s2)
+    num_vowels = count_vowels(shared_chars)
+    return num_vowels
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id37
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([5, 2, 0, 5, 10]) ==0
+    assert candidate([-100, -20, -3, 0, 0]) ==-123
+    assert candidate([-23, -2, -5, 1000, 23, -10, -100, -10]) ==-150
+    assert candidate([5, 1000, 0, 1, 0, 0, 0, 1, 1]) ==0
+0 baseline
+def find_negative_sum(arr):
+    return sum([num for num in arr if num < 0])
+
+
+1 summary_prompt+decomposition
+def find_negative_numbers_sum(array):
+    sum = 0
+    for num in array:
+        if num < 0:
+            sum += num
+    return sum
+
+
+2 summary_prompt+mtbp_orignal
+def find_negative_sum(lst):
+    lst2 = [num for num in lst if num < 0]
+    return sum(lst2)
+
+lst1 = [-1, -2, 0, 1, 5]
+print(find_negative_sum(lst1))
+
+
+-3
+3 summary_promptdecomposition+chainofthought
+def find_negative_numbers_sum(array):
+    sum = 0
+    for num in array:
+        if num < 0:
+            sum += num
+    return sum
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_negative_sum(lst1):
+    lst2 = [x for x in lst1 if x < 0]
+    return sum(lst2)
+
+print(find_negative_sum([-1, -2, 0, 1, 5]))
+
+
+-3
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id38
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('alco') == 44369
+0 baseline
+def load_file(file_name):
+    with open(file_name, 'r') as file:
+        data = file.read()
+    return data
+
+file_name = 'example.txt'
+data = load_file(file_name)
+print(len(data))
+
+
+1 summary_prompt+decomposition
+def load_and_print_statistics(filename):
+    try:
+        with open(filename, 'r') as file:
+            contents = file.read()
+            num_lines = len(contents.split('\n'))
+            num_words = len(contents.split())
+            num_chars = len(contents)
+            print('Number of lines:', num_lines)
+            print('Number of words:', num_words)
+            print('Number of characters:', num_chars)
+    except FileNotFoundError:
+        print('File not found.')
+    except Exception as e:
+        print('An error occurred:', str(e))
+
+
+2 summary_prompt+mtbp_orignal
+def load_and_print_statistics():
+    import pandas as pd
+    df = pd.read_csv('./datasets/mlbootcamp5_train.csv')
+    my_counts = df.groupby('gender')['{a1}'].value_counts()
+    plain_list = my_counts.values
+    print(max(plain_list))
+    return
+
+
+3 summary_promptdecomposition+chainofthought
+def load_and_print_statistics(filename):
+    try:
+        with open(filename, 'r') as file:
+            content = file.read()
+            num_lines = content.count('\n') + 1
+            num_words = len(content.split())
+            num_chars = len(content)
+            print('Number of lines:', num_lines)
+            print('Number of words:', num_words)
+            print('Number of characters:', num_chars)
+    except FileNotFoundError:
+        print('File not found.')
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import pandas as pd
+
+# Read the dataframe from the csv file
+df = pd.read_csv('./datasets/mlbootcamp5_train.csv')
+
+# Group by the 'gender' column and get value counts for 'alco'
+my_counts = df.groupby('gender')['a1'].value_counts()['alco']
+
+# Convert the value counts to a plain list
+plain_list = my_counts.values.tolist()
+
+# Print the maximum element of the list
+print(max(plain_list))
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id39
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('Hello, World!') == [5, 6]
+0 baseline
+def non_punctuation_lengths(strings):
+    return [len([c for c in s if c.isalpha()]) for s in strings]
+
+
+1 summary_prompt+decomposition
+def get_non_punctuation_lengths(strings):
+    lengths = []
+    for string in strings:
+        count = 0
+        for char in string:
+            if not char.isalnum() and char != ' ':
+                count += 1
+        lengths.append(len(string) - count)
+    return lengths
+
+
+2 summary_prompt+mtbp_orignal
+def get_word_lengths(s):
+    import re
+    pattern = re.compile('[,.]')
+    s2 = pattern.sub('', s)
+    words = s2.split()
+    return [len(word) for word in words]
+
+
+3 summary_promptdecomposition+chainofthought
+def get_non_punctuation_lengths(strings):
+    return [len([c for c in s if c.isalnum()]) for s in strings]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import re
+
+def non_punctuation_lengths(s):
+    pattern = re.compile('[,.]')
+    s2 = pattern.sub('', s)
+    words = s2.split()
+    return [len(word) for word in words]
+
+
+reward_list= [0, 0, 1, 0, 0]
+################################################################################
+id_number= id40
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('#FFF') == True
+0 baseline
+def hex_to_rgb(s):
+    return [int(s[i:i+2], 16) for i in (1, 3, 5)]
+
+
+1 summary_prompt+decomposition
+def hex_to_rgb(hex_string):
+    red = int(hex_string[1:3], 16)
+    green = int(hex_string[3:5], 16)
+    blue = int(hex_string[5:], 16)
+    return [red, green, blue]
+
+
+2 summary_prompt+mtbp_orignal
+def convert_hex_to_rgb(s):
+    s2 = s.lower()
+    pattern3 = re.compile('#[0-9a-f]{3}')
+    pattern6 = re.compile('#[0-9a-f]{6}')
+    return bool(pattern3.match(s2) or pattern6.match(s2))
+
+
+3 summary_promptdecomposition+chainofthought
+def hex_to_rgb(hex_string):
+    red = int(hex_string[1:3], 16)
+    green = int(hex_string[3:5], 16)
+    blue = int(hex_string[5:7], 16)
+    return [red, green, blue]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import re
+
+def convert_hex_to_rgb(s):
+    s2 = s.lower()
+    pattern3 = re.compile('#[0-9a-f]{3}')
+    pattern6 = re.compile('#[0-9a-f]{6}')
+    if pattern3.match(s2) or pattern6.match(s2):
+        return True
+    else:
+        return False
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id41
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({[]})==None
+    assert candidate({[100, 100, 0])==100
+    assert candidate([0, 0, 0, 0, 0, 1, 1, 1, 1])==0
+    assert candidate([1, 2, 3, 4, 5, 6, 6, 6, 6, 6])==None}
+0 baseline
+def find_majority(nums):
+    return max(set(nums), key=nums.count)
+
+
+1 summary_prompt+decomposition
+def find_majority_element(nums):
+    count = {}
+    for num in nums:
+        if num in count:
+            count[num] += 1
+        else:
+            count[num] = 1
+    for num, freq in count.items():
+        if freq > len(nums) / 2:
+            return num
+    return None
+
+
+2 summary_prompt+mtbp_orignal
+def count_values(lst):
+    counts = {}
+    for num in lst:
+        if num in counts:
+            counts[num] += 1
+        else:
+            counts[num] = 1
+    return counts
+
+lst = [1, 1, 2, 2, 2, 2]
+counts = count_values(lst)
+max_count = max(counts.values())
+if max_count > len(lst) / 2:
+    print(max(counts, key=counts.get))
+else:
+    print(None)
+
+
+3 summary_promptdecomposition+chainofthought
+def find_majority_element(nums):
+    count = {}
+    for num in nums:
+        count[num] = count.get(num, 0) + 1
+    for num, freq in count.items():
+        if freq > len(nums) / 2:
+            return num
+    return None
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def count_values(lst):
+    counts = {}
+    for num in lst:
+        if num in counts:
+            counts[num] += 1
+        else:
+            counts[num] = 1
+    return counts
+
+lst = [1, 1, 2, 2, 2, 2]
+counts = count_values(lst)
+max_count = max(counts.values())
+if max_count > len(lst) / 2:
+    print(max(counts, key=counts.get))
+else:
+    print(None)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id42
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({2}/{26}/{2000})==03/04/2000
+    assert candidate({12}/{28}/{2022})==01/04/2023
+    assert candidate({11}/{5}/{1274}})==11/12/1274
+    assert candidate({7}/{30}/{1600}})==08/06/1600}
+0 baseline
+from datetime import datetime, timedelta
+
+def add_seven_days(date):
+    date_obj = datetime.strptime(date, '%m/%d/%Y')
+    new_date = date_obj + timedelta(days=7)
+    return new_date.strftime('%m/%d/%Y')
+
+
+1 summary_prompt+decomposition
+def get_date_seven_days_after(date):
+    month, day, year = map(int, date.split('/'))
+    day += 7
+    if day > 31:
+        day -= 31
+        month += 1
+        if month > 12:
+            month -= 12
+            year += 1
+    return '{:02d}/{:02d}/{:04d}'.format(month, day, year)
+
+
+2 summary_prompt+mtbp_orignal
+def get_date_after_seven_days(date):
+    import datetime
+    today = datetime.datetime.strptime(date, '%m/%d/%Y')
+    week = today + datetime.timedelta(days=7)
+    return week.strftime('%m/%d/%Y')
+
+
+3 summary_promptdecomposition+chainofthought
+def get_date_seven_days_after(date):
+    month, day, year = map(int, date.split('/'))
+    day += 7
+    if day > 31:
+        month += 1
+        day -= 31
+        if month > 12:
+            year += 1
+            month -= 12
+    return '{:02d}/{:02d}/{:04d}'.format(month, day, year)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import datetime
+
+
+def date_seven_days_later(date):
+    today = datetime.datetime.strptime(date, '%m/%d/%Y')
+    week = today + datetime.timedelta(days=7)
+    return week.strftime('%m/%d/%Y')
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id43
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate({'words': ["I'll", 'see', 'trees.']})==True
+    assert candidate({'words': ['a...', 'b?', 'c!', 'd']})==True
+    assert candidate({'words': ['', 'a', 'A']})==False
+    assert candidate({'words': ['ABC', 'ghijklmno', 'def']})==False
+}
+0 baseline
+def compute_letter_weight(words):
+    weights = []
+    for word in words:
+        weight = sum(ord(letter) for letter in word)
+        weights.append(weight)
+    sorted_weights = sorted(weights)
+    return sorted_weights == weights
+
+
+1 summary_prompt+decomposition
+def compute_letter_weights(words):
+    weights = []
+    for word in words:
+        weight = sum(ord(letter) for letter in word)
+        weights.append(weight)
+    sorted_weights = sorted(weights)
+    return sorted_weights == weights
+
+
+2 summary_prompt+mtbp_orignal
+def word_weight(word):
+    return sum(ord(c) for c in word)
+
+words = ['apple', 'banana', 'carrot']
+weights = [word_weight(word) for word in words]
+
+print(sorted(weights) == weights)
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_letter_weights(words):
+    weights = []
+    for word in words:
+        weight = sum(ord(letter) for letter in word)
+        weights.append(weight)
+    sorted_weights = sorted(weights)
+    if sorted_weights == weights:
+        return True
+    else:
+        return False
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def word_weight(word):
+    return sum(ord(c) for c in word)
+
+words = ['apple', 'banana', 'carrot']
+weights = [word_weight(w) for w in words]
+print(sorted(weights) == weights)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id44
+
+
+mark:False
+
+
+test code
+def check(candidate):
+    assert candidate(1234)==False
+    assert candidate({123212)==True
+    assert candidate({11211230)==True
+    assert candidate({1112212124000131)==True}
+0 baseline
+def is_palindrome(num):
+    return str(num) == str(num)[::-1]
+
+
+1 summary_prompt+decomposition
+def is_palindrome_possible(num):
+    num = str(num)
+    length = len(num)
+    for i in range(length // 2):
+        if int(num[i]) + int(num[length - i - 1]) != int(num[length - i - 2]):
+            return False
+    return True
+
+
+2 summary_prompt+mtbp_orignal
+def is_palindrome(n):
+    return str(n) == str(n)[::-1]
+
+def descent(n):
+    return sum(int(a) + int(b) for a, b in zip(str(n), str(n)[1:]))
+
+base = {n}
+
+while len(str(base)) > 1:
+    if is_palindrome(base):
+        break
+    else:
+        base = descent(base)
+
+print(False if len(str(base)) == 1 else True)
+
+
+3 summary_promptdecomposition+chainofthought
+def is_palindrome_possible(num):
+    num = str(num)
+    length = len(num)
+    for i in range(length // 2):
+        if num[i] != num[length - i - 1]:
+            return False
+    return True
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def is_palindrome(n):
+    return str(n) == str(n)[::-1]
+
+
+def descent(n):
+    n = str(n)
+    result = ''
+    for i in range(len(n)-1):
+        result += str(int(n[i]) + int(n[i+1]))
+    return int(result)
+
+
+def check_palindrome(n):
+    base = n
+    while len(str(base)) > 1:
+        if is_palindrome(base):
+            break
+        else:
+            base = descent(base)
+    return len(str(base)) == 1
+
+
+print(check_palindrome({n}))
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id45
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('@@@@')==""
+    assert candidate('si@@@t boy')=="sit boy"
+    assert candidate('a@b@c@d@e@f@g@h@i@jkl')=="abcdefghjkl"
+    assert candidate('hello   @@world')=="hello   world"
+0 baseline
+def remove_at_signs(string):
+    return string.replace('@', '')
+
+
+1 summary_prompt+decomposition
+def remove_at_signs(string):
+    return string.replace('@', '')
+
+
+2 summary_prompt+mtbp_orignal
+def remove_at_signs(input):
+    result = ''
+    for char in input:
+        if char != '@':
+            result += char
+    return result
+
+
+3 summary_promptdecomposition+chainofthought
+def remove_at_signs(string):
+    return string.replace('@', '')
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def remove_at_signs(input):
+    input = input.replace('@', '')
+    return input
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id46
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({50, 50})==100
+    assert candidate({20, 80})==100
+    assert candidate({10, 90})==100
+    assert candidate({90, 30})==120}
+0 baseline
+def extract_and_sum(dictionary):
+    return sum([value for value in dictionary.values() if isinstance(value, int)])
+
+
+1 summary_prompt+decomposition
+def extract_and_sum_integers(dictionary):
+    total = 0
+    for value in dictionary.values():
+        if isinstance(value, int):
+            total += value
+    return total
+
+
+2 summary_prompt+mtbp_orignal
+def extract_and_sum_integers(input):
+    sum = 0
+    for key, value in input.items():
+        if isinstance(value, int):
+            sum += value
+    return sum
+
+
+3 summary_promptdecomposition+chainofthought
+def extract_and_sum_integers(dictionary):
+    total = 0
+    for value in dictionary.values():
+        if isinstance(value, int):
+            total += value
+    return total
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def extract_and_sum_integers(dictionary):
+    sum = 0
+    for key, value in dictionary.items():
+        if isinstance(value, int):
+            sum += value
+    return sum
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id47
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([10, 7, 5, 3, 1])==29
+    assert candidate([10, 20, 30, 40, 50, 60])==1575
+    assert candidate([-100, 100])==0
+    assert candidate([-5, -10, 0, 10])==5}
+0 baseline
+def sum_missing_elements(lst):
+    return sum(range(min(lst), max(lst)+1)) - sum(lst)
+
+
+1 summary_prompt+decomposition
+def sum_missing_elements(lists):
+    # Computes the sum of missing elements in a range of integer lists.
+    total_sum = 0
+    for integer_list in lists:
+        min_value = min(integer_list)
+        max_value = max(integer_list)
+        range_sum = sum(range(min_value, max_value+1))
+        list_sum = sum(integer_list)
+        missing_sum = range_sum - list_sum
+        total_sum += missing_sum
+    return total_sum
+
+
+2 summary_prompt+mtbp_orignal
+def compute_missing_sum(lst):
+    a = min(lst)
+    b = max(lst)
+    lst2 = list(range(a, b+1))
+    missing_elements = [x for x in lst2 if x not in lst]
+    return sum(missing_elements)
+
+
+3 summary_promptdecomposition+chainofthought
+def sum_missing_elements(lists):
+    total_sum = 0
+    for integer_list in lists:
+        min_value = min(integer_list)
+        max_value = max(integer_list)
+        range_sum = sum(range(min_value, max_value+1))
+        list_sum = sum(integer_list)
+        missing_sum = range_sum - list_sum
+        total_sum += missing_sum
+    return total_sum
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sum_missing_elements(lst):
+    a = min(lst)
+    b = max(lst)
+    lst2 = list(range(a, b+1))
+    missing_elements = [x for x in lst2 if x not in lst]
+    return sum(missing_elements)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id48
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(['abc', 'abc10'])==['abc10']
+    assert candidate({['abc', 'ab10c', 'a10bc', 'bcd'])==['ab10c', 'a10bc']
+    assert candidate(['this is a test', 'test1'])==['test1']
+    assert candidate(['t0t', '11', '0'])==['t0t', '11', '0']
+0 baseline
+def find_numbers(lst):
+    return [x for x in lst if any(c.isdigit() for c in x)]
+
+
+1 summary_prompt+decomposition
+def check_string_contains_number(lst):
+    number_list = []
+    for element in lst:
+        if element.isdigit():
+            number_list.append(element)
+    print(number_list)
+
+
+2 summary_prompt+mtbp_orignal
+def num_in_str(lst):
+    lst2 = []
+    for string in lst:
+        for char in string:
+            if char.isdigit():
+                lst2.append(string)
+                break
+    return lst2
+
+
+3 summary_promptdecomposition+chainofthought
+def check_string_contains_number(lst):
+    number_list = []
+    for element in lst:
+        if element.isdigit():
+            number_list.append(element)
+    print(number_list)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def num_in_str(lst1):
+    lst2 = []
+    for s in lst1:
+        if any(char.isdigit() for char in s):
+            lst2.append(s)
+    return lst2
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id49
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({1, 1, 2, 1})==2
+    assert candidate(2, 2, 2, 2})==16
+    assert candidate({-2, 2, 2, 1})==-8
+    assert candidate({-2, -2, 2, 1})==8}
+0 baseline
+def multiply_numbers(a, b, c, d):
+    return a * b * c * d
+
+
+1 summary_prompt+decomposition
+def multiply_four_numbers(num1, num2, num3, num4):
+    return num1 * num2 * num3 * num4
+
+
+2 summary_prompt+mtbp_orignal
+def a(x):
+    return x * 2
+
+def b(x):
+    return x * 2
+
+def c(x):
+    return x * 2
+
+abc = [a, b, c]
+
+my_init = 1
+my_result = abc[0](my_init)
+
+for i in range(1, len(abc)):
+    my_result = abc[i](my_result)
+
+print(my_result)
+
+
+3 summary_promptdecomposition+chainofthought
+def multiply_four_numbers(num1, num2, num3, num4):
+    return num1 * num2 * num3 * num4
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def a(x):
+    return x * a1
+
+def b(x):
+    return x * a2
+
+def c(x):
+    return x * a3
+
+abc = [a, b, c]
+my_init = a4
+my_result = abc[0](my_init)
+
+for i in range(1, len(abc)):
+    my_result = abc[i](my_result)
+
+print(my_result)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id50
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({"arm", "arm", "arm", "arm"})==True
+    assert candidate({"chair", "arm", "pencil", "arm"})==True
+    assert candidate({"chair", "pencil", "arm"})==False
+    assert candidate({"chair", "pencil", "table"})==False
+0 baseline
+def is_plural(word):
+    return word.endswith('s')
+
+
+1 summary_prompt+decomposition
+def is_plural_word(word):
+    if word.endswith('s') or word.endswith('es'):
+        return True
+    else:
+        return False
+
+
+2 summary_prompt+mtbp_orignal
+def to_plural(words):
+    return {word+'s' for word in words if words.count(word) > 1}
+
+def is_plural(word):
+    return word.endswith('s')
+
+words = {'chair', 'pencil', 'arm', 'arm'}
+words_plural = to_plural(words)
+contains_plural = any(is_plural(word) for word in words_plural)
+print(contains_plural)
+
+
+3 summary_promptdecomposition+chainofthought
+def is_plural_word(word):
+    return word.endswith('s') or word.endswith('es')
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def to_plural(words):
+    return {word+'s' for word in words if words.count(word) > 1}
+
+def is_plural(word):
+    return word[-1] == 's'
+
+words = {'chair', 'pencil', 'arm', 'arm'}
+words_plural = to_plural(words)
+contains_plural = any(is_plural(word) for word in words_plural)
+contains_plural
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id51
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1,2,3,4]) == 10
+0 baseline
+def prefix_sum(lst):
+    return sum([sum(lst[:i+1]) for i in range(len(lst))])
+
+
+1 summary_prompt+decomposition
+def compute_prefix_sum(lst):
+    prefix_sums = []
+    current_sum = 0
+    for num in lst:
+        current_sum += num
+        prefix_sums.append(current_sum)
+    return sum(prefix_sums)
+
+
+2 summary_prompt+mtbp_orignal
+def compute_prefix_sum(A):
+    my_relative_altitude = A
+    my_net_altitude = [sum(A[:i+1]) for i in range(len(A))]
+    max_altitude = max(my_net_altitude)
+    return max_altitude
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_prefix_sum(lst):
+    prefix_sum = 0
+    sum_of_prefix_sums = 0
+    for num in lst:
+        prefix_sum += num
+        sum_of_prefix_sums += prefix_sum
+    return sum_of_prefix_sums
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_prefix_sum(A):
+    my_relative_altitude = A
+    my_net_altitude = [0]
+    for i in range(len(A)):
+        my_net_altitude.append(my_net_altitude[i] + A[i])
+    max_altitude = max(my_net_altitude)
+    return max_altitude
+
+
+reward_list= [0, 0, 1, 0, 1]
+################################################################################
+id_number= id52
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(['hello', 'world'], 1) == ['hello']
+0 baseline
+def truncate_sentence(input_dict):
+    return input_dict['A'][:input_dict['K']]
+
+
+1 summary_prompt+decomposition
+def truncate_sentence(sentence, k):
+    words = sentence.split()
+    truncated_words = words[:k]
+    truncated_sentence = ' '.join(truncated_words)
+    return truncated_sentence
+
+
+2 summary_prompt+mtbp_orignal
+def truncate_sentence(input_dict):
+    my_sentences = input_dict['A']
+    k = input_dict['K']
+    truncated_list = my_sentences[:k]
+    return truncated_list
+
+
+3 summary_promptdecomposition+chainofthought
+def truncate_sentence(sentence, k):
+    words = sentence.split()
+    truncated_words = words[:k]
+    truncated_sentence = ' '.join(truncated_words)
+    return truncated_sentence
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def truncate_sentence(input_dict):
+    my_sentences = input_dict['A']
+    k = input_dict['K']
+    truncated_list = my_sentences[:k]
+    return truncated_list
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id53
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 2, 2, 2]) == 1
+0 baseline
+def find_unique_elements(arr):
+    return [x for x in arr if arr.count(x) == 1]
+
+
+1 summary_prompt+decomposition
+def find_single_elements(arr):
+    single_elements = []
+    for element in arr:
+        if arr.count(element) == 1:
+            single_elements.append(element)
+    return single_elements
+
+
+2 summary_prompt+mtbp_orignal
+def find_one_time_element(A):
+    my_numbers = A
+    frequency_table = {}
+    for num in my_numbers:
+        if num in frequency_table:
+            frequency_table[num] += 1
+        else:
+            frequency_table[num] = 1
+    one_time = None
+    for num, freq in frequency_table.items():
+        if freq == 1:
+            one_time = num
+            break
+    return one_time
+
+
+3 summary_promptdecomposition+chainofthought
+def find_single_elements(arr):
+    single_elements = []
+    for num in arr:
+        if arr.count(num) == 1:
+            single_elements.append(num)
+    return single_elements
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_one_time_element(A):
+    my_numbers = A
+    frequency_table = {}
+    for num in my_numbers:
+        if num in frequency_table:
+            frequency_table[num] += 1
+        else:
+            frequency_table[num] = 1
+    one_time = None
+    for num, freq in frequency_table.items():
+        if freq == 1:
+            one_time = num
+            break
+    return one_time
+
+
+reward_list= [0, 0, 1, 0, 1]
+################################################################################
+id_number= id54
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 2, 2, 2], 2) == [1]
+0 baseline
+def remove_element(arr, val):
+    return [x for x in arr if x != val]
+
+
+1 summary_prompt+decomposition
+def remove_element(arr, element):
+    return [x for x in arr if x != element]
+
+
+2 summary_prompt+mtbp_orignal
+def remove_occurrences(A, Val):
+    my_numbers = A
+    val = Val
+    remove_numbers = [x for x in my_numbers if x != val]
+    return remove_numbers
+
+
+3 summary_promptdecomposition+chainofthought
+def remove_element(arr, element):
+    return [x for x in arr if x != element]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def remove_occurrences(my_numbers, val):
+    remove_numbers = [x for x in my_numbers if x != val]
+    return remove_numbers
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id55
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 2, 2, 2], 2) == 'False'
+0 baseline
+def check_sum(arr, val):
+    return sum(arr) == val
+
+
+1 summary_prompt+decomposition
+def check_sum(array, value):
+    sum = 0
+    for num in array:
+        sum += num
+    if sum == value:
+        return True
+    else:
+        return False
+
+
+2 summary_prompt+mtbp_orignal
+def check_sum(A, Val):
+    my_numbers = A
+    val = Val
+    sum_numbers = sum(my_numbers)
+    if sum_numbers == val:
+        return True
+    else:
+        return False
+
+
+3 summary_promptdecomposition+chainofthought
+def check_sum(array, value):
+    return sum(array) == value
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def check_sum(my_numbers, val):
+    sum_numbers = sum(my_numbers)
+    return sum_numbers == val
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id56
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 2, 2, 2], [3, 4]) == [1, 2, 2, 2, 3, 4]
+0 baseline
+def merge_lists(list1, list2):
+    return sorted(list1 + list2)
+
+
+1 summary_prompt+decomposition
+def merge_sorted_lists(list1, list2):
+    merged_list = []
+    i = 0
+    j = 0
+    while i < len(list1) and j < len(list2):
+        if list1[i] < list2[j]:
+            merged_list.append(list1[i])
+            i += 1
+        else:
+            merged_list.append(list2[j])
+            j += 1
+    merged_list.extend(list1[i:])
+    merged_list.extend(list2[j:])
+    return merged_list
+
+
+2 summary_prompt+mtbp_orignal
+def merge_sorted_lists(A, B):
+    my_numbers1 = sorted(A)
+    my_numbers2 = sorted(B)
+    new_list = my_numbers1 + my_numbers2
+    sorted_new_list = sorted(new_list)
+    return sorted_new_list
+
+
+3 summary_promptdecomposition+chainofthought
+def merge_sorted_lists(list1, list2):
+    merged_list = []
+    i = 0
+    j = 0
+    while i < len(list1) and j < len(list2):
+        if list1[i] <= list2[j]:
+            merged_list.append(list1[i])
+            i += 1
+        else:
+            merged_list.append(list2[j])
+            j += 1
+    merged_list.extend(list1[i:])
+    merged_list.extend(list2[j:])
+    return merged_list
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def merge_sorted_lists(A, B):
+    my_numbers1 = sorted(A)
+    my_numbers2 = sorted(B)
+    new_list = my_numbers1 + my_numbers2
+    sorted_new_list = sorted(new_list)
+    return sorted_new_list
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id57
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1]) == 1
+0 baseline
+def max_subarray_sum(arr):
+    max_sum = float('-inf')
+    current_sum = 0
+    for num in arr:
+        current_sum = max(num, current_sum + num)
+        max_sum = max(max_sum, current_sum)
+    return max_sum
+
+
+1 summary_prompt+decomposition
+def find_max_contiguous_subarray_sum(array):
+    max_sum = float('-inf')
+    current_sum = 0
+    for num in array:
+        current_sum = max(num, current_sum + num)
+        max_sum = max(max_sum, current_sum)
+    return max_sum
+
+
+2 summary_prompt+mtbp_orignal
+def find_max_subarray_sum(my_array):
+    max_subarray = my_array[0]
+    current_sum = my_array[0]
+    for i in range(1, len(my_array)):
+        current_sum = max(my_array[i], current_sum + my_array[i])
+        max_subarray = max(max_subarray, current_sum)
+    return max_subarray
+
+my_array = [1, 5, 5, 5, 5, 5, 0]
+sum_subarray = find_max_subarray_sum(my_array)
+print(sum_subarray)
+
+
+26
+3 summary_promptdecomposition+chainofthought
+def find_max_contiguous_subarray_sum(array):
+    max_sum = float('-inf')
+    current_sum = 0
+    for num in array:
+        current_sum = max(num, current_sum + num)
+        max_sum = max(max_sum, current_sum)
+    return max_sum
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_max_subarray_sum(my_array):
+    max_subarray = [my_array[0]]
+    current_subarray = [my_array[0]]
+    for i in range(1, len(my_array)):
+        if current_subarray[-1] + my_array[i] > my_array[i]:
+            current_subarray.append(current_subarray[-1] + my_array[i])
+        else:
+            current_subarray = [my_array[i]]
+        if sum(current_subarray) > sum(max_subarray):
+            max_subarray = current_subarray
+    return sum(max_subarray)
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id58
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(1) == 1
+0 baseline
+import math
+
+def largest_integer(num):
+    return math.floor(math.sqrt(num))
+
+
+1 summary_prompt+decomposition
+def largest_integer_sqrt(number):
+    import math
+    return math.floor(math.sqrt(number))
+
+
+2 summary_prompt+mtbp_orignal
+def compute_largest_square_root(A):
+    my_number = A
+    square_root = math.sqrt(my_number)
+    largest_square_root = math.floor(square_root)
+    return largest_square_root
+
+
+3 summary_promptdecomposition+chainofthought
+def largest_integer_sqrt(number):
+    import math
+    return math.floor(math.sqrt(number))
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_largest_integer(input_dict):
+    my_number = input_dict['A']
+    square_root = int(my_number ** 0.5)
+    largest_square_root = int(square_root)
+    return largest_square_root
+
+
+reward_list= [0, 1, 0, 1, 0]
+################################################################################
+id_number= id59
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(['Hello', 'word']) == 'Hello'
+0 baseline
+def find_longest_word(word_list):
+    return max(word_list, key=len)
+
+
+1 summary_prompt+decomposition
+def find_longest_word(word_list):
+    longest_word = ''
+    max_length = 0
+    for word in word_list:
+        if len(word) > max_length:
+            longest_word = word
+            max_length = len(word)
+    return longest_word
+
+
+2 summary_prompt+mtbp_orignal
+def find_longest_word(word_list):
+    my_words = word_list['A']
+    word_count = {}
+    for word in my_words:
+        word_count[word] = len(word)
+    longest_word = max(word_count, key=word_count.get)
+    return longest_word
+
+
+3 summary_promptdecomposition+chainofthought
+def find_longest_word(word_list):
+    longest_word = ''
+    max_length = 0
+    for word in word_list:
+        if len(word) > max_length:
+            longest_word = word
+            max_length = len(word)
+    return longest_word
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_longest_word(input_dict):
+    my_words = input_dict['A']
+    word_count = {word: len(word) for word in my_words}
+    longest_word = max(word_count, key=word_count.get)
+    return longest_word
+
+
+reward_list= [1, 1, 0, 1, 0]
+################################################################################
+id_number= id60
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 2, 3]) == 6
+0 baseline
+def sum_unique_numbers(lst):
+    return sum(set(lst))
+
+
+1 summary_prompt+decomposition
+def sum_unique_numbers(numbers):
+    unique_numbers = set()
+    for num in numbers:
+        if num not in unique_numbers:
+            unique_numbers.add(num)
+    return sum(unique_numbers)
+
+
+2 summary_prompt+mtbp_orignal
+def sum_unique_numbers(my_numbers):
+    my_uniques = [x for x in my_numbers if my_numbers.count(x) == 1]
+    return sum(my_uniques)
+
+
+3 summary_promptdecomposition+chainofthought
+def sum_unique_numbers(numbers):
+    unique_numbers = set()
+    sum = 0
+    for num in numbers:
+        if num not in unique_numbers:
+            unique_numbers.add(num)
+            sum += num
+    return sum
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sum_unique_numbers(my_numbers):
+    my_uniques = [x for x in my_numbers if my_numbers.count(x) == 1]
+    return sum(my_uniques)
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id61
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[3, 2], [2, 3]]) == 6
+0 baseline
+def diagonal_sum(matrix):
+    return sum(matrix[i][i] for i in range(len(matrix)))
+
+
+1 summary_prompt+decomposition
+def compute_diagonal_sum(matrix):
+    diagonal_sum = 0
+    for i in range(len(matrix)):
+        diagonal_sum += matrix[i][i]
+    return diagonal_sum
+
+
+2 summary_prompt+mtbp_orignal
+def diagonal_sum(matrix):
+    my_matrix = matrix['A']
+    diag_elements = [my_matrix[i][i] for i in range(len(my_matrix))]
+    return sum(diag_elements)
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_diagonal_sum(matrix):
+    diagonal_sum = 0
+    for i in range(len(matrix)):
+        diagonal_sum += matrix[i][i]
+    return diagonal_sum
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def diagonal_sum(matrix):
+    my_matrix = matrix['A']
+    diag_elements = [my_matrix[i][i] for i in range(len(my_matrix))]
+    return sum(diag_elements)
+
+
+reward_list= [1, 1, 0, 1, 0]
+################################################################################
+id_number= id62
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[3, 2], [2, 3]], [[3, 2], [2, 2]]) == 'False'
+0 baseline
+def compare_determinants(A, B):
+    return True if abs(np.linalg.det(A) - np.linalg.det(B)) < 1e-9 else False
+
+
+1 summary_prompt+decomposition
+def compare_matrix_determinants(matrix1, matrix2):
+    determinant1 = matrix1[0][0] * matrix1[1][1] - matrix1[0][1] * matrix1[1][0]
+    determinant2 = matrix2[0][0] * matrix2[1][1] - matrix2[0][1] * matrix2[1][0]
+    if determinant1 == determinant2:
+        return True
+    else:
+        return False
+
+
+2 summary_prompt+mtbp_orignal
+def compare_matrix_determinants(A, B):
+    a = A
+    b = B
+
+    def determinant(matrix):
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+
+    if determinant(a) > determinant(b):
+        return True
+    else:
+        return False
+
+
+3 summary_promptdecomposition+chainofthought
+def compare_matrix_determinants(matrix1, matrix2):
+    return True if np.linalg.det(matrix1) == np.linalg.det(matrix2) else False
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def determinant(matrix):
+    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
+
+a = [[3, 2], [2, 3]]
+b = [[3, 2], [2, 2]]
+
+if determinant(a) > determinant(b):
+    print('True')
+else:
+    print('False')
+
+
+True
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id63
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[3, 2], [2, 3]], [[3, 2], [2, 3]]) == 10
+0 baseline
+def matrix_sum(A, B):
+    return sum(sum(row) for row in (map(sum, zip(*matrices))) for matrices in zip(A, B))
+
+
+1 summary_prompt+decomposition
+def matrix_multiplication_sum(matrix1, matrix2):
+    result = []
+    for i in range(len(matrix1)):
+        row = []
+        for j in range(len(matrix2[0])):
+            sum = 0
+            for k in range(len(matrix2)):
+                sum += matrix1[i][k] * matrix2[k][j]
+            row.append(sum)
+        result.append(row)
+    return result
+
+
+2 summary_prompt+mtbp_orignal
+def matrix_multiplication_sum(A, B):
+    a = A
+    b = B
+    result = [[0, 0], [0, 0]]
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                result[i][j] += A[i][k] * B[k][j]
+    return sum(sum(row) for row in result)
+
+
+3 summary_promptdecomposition+chainofthought
+def matrix_multiplication_sum(matrix1, matrix2):
+    result = []
+    for i in range(len(matrix1)):
+        row = []
+        for j in range(len(matrix2[0])):
+            sum = 0
+            for k in range(len(matrix2)):
+                sum += matrix1[i][k] * matrix2[k][j]
+            row.append(sum)
+        result.append(row)
+    return result
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def matrix_multiplication_sum(A, B):
+    a = A
+    b = B
+    result = [[0, 0], [0, 0]]
+    for i in range(len(A)):
+        for j in range(len(B[0])):
+            for k in range(len(B)):
+                result[i][j] += A[i][k] * B[k][j]
+    return sum(sum(row) for row in result)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id64
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[3, 2], [2, 3]], 1) == 'True'
+0 baseline
+import numpy as np
+
+def check_condition_number(A):
+    return np.linalg.cond(A) < threshold
+
+
+1 summary_prompt+decomposition
+def check_condition_number(matrix, threshold):
+    '''Check condition number of a matrix is less than a threshold.
+    Args:
+        matrix (list): The matrix for which we want to check the condition number.
+        threshold (float): The maximum value allowed for the condition number.
+    Returns:
+        bool: True if the condition number is less than the threshold, False otherwise.
+    '''
+    # Calculate the ratio of the largest singular value to the smallest singular value
+    condition_number = max(matrix) / min(matrix)
+    # Check if the condition number is less than the threshold
+    if condition_number < threshold:
+        return True
+    else:
+        return False
+
+
+2 summary_prompt+mtbp_orignal
+def check_condition_number(A, T):
+    my_matrix = A
+    t = T
+    result = numpy.linalg.cond(my_matrix)
+    if result < t:
+        return True
+    else:
+        return False
+
+
+3 summary_promptdecomposition+chainofthought
+def check_condition_number(matrix, threshold):
+    return numpy.linalg.cond(matrix) < threshold
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def check_condition_number(matrix, threshold):
+    my_matrix = matrix
+    t = threshold
+    result = numpy.linalg.cond(my_matrix)
+    if result < t:
+        return True
+    else:
+        return False
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id65
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert abs(candidate([1, 3, 2, 2]) - 3.6265233750364456) < 1e-6
+0 baseline
+import numpy as np
+
+def log_sum_exp(input):
+    return np.log(np.sum(np.exp(input)))
+
+
+1 summary_prompt+decomposition
+def compute_log_sum_exp(input):
+    return math.log(sum(math.exp(x) for x in input))
+
+
+2 summary_prompt+mtbp_orignal
+def compute_log_sum_exponential(my_numbers):
+    exponential_output = [math.exp(x) for x in my_numbers]
+    sum_exponential = sum(exponential_output)
+    log_sum_exponential = math.log(sum_exponential)
+    return log_sum_exponential
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_log_sum_exp(input):
+    exp_values = [math.exp(x) for x in input]
+    sum_exp = sum(exp_values)
+    log_sum_exp = math.log(sum_exp)
+    return log_sum_exp
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_log_sum_exponential(my_numbers):
+    exponential_output = [math.exp(x) for x in my_numbers]
+    sum_exponential = sum(exponential_output)
+    log_sum_exponential = math.log(sum_exponential)
+    return log_sum_exponential
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id66
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[1, 3], [2, 2]], 1) == [[2, 2]]
+0 baseline
+import math
+
+def find_k_nearest_points(points, k):
+    distances = []
+    for point in points:
+        distance = math.sqrt(point[0]**2 + point[1]**2)
+        distances.append(distance)
+    sorted_points = [point for _, point in sorted(zip(distances, points))]
+    return sorted_points[:k]
+
+
+1 summary_prompt+decomposition
+def find_k_nearest_points(points):
+    distances = []
+    for point in points:
+        distance = (point[0]**2 + point[1]**2)**0.5
+        distances.append(distance)
+    distances.sort()
+    return distances[:k]
+
+
+2 summary_prompt+mtbp_orignal
+def distance(point):
+    return (point[0]**2 + point[1]**2)**0.5
+
+
+def k_closest_points(points, k):
+    points.sort(key=distance)
+    return points[:k]
+
+
+my_points = [[1, 3], [2, 2]]
+k = 1
+
+result = k_closest_points(my_points, k)
+print(result)
+
+
+3 summary_promptdecomposition+chainofthought
+def find_k_nearest_points(points, k):
+    distances = []
+    for point in points:
+        distance = (point[0]**2 + point[1]**2)**0.5
+        distances.append(distance)
+    sorted_points = [point for _, point in sorted(zip(distances, points))]
+    return sorted_points[:k]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def distance(point):
+    return (point[0]**2 + point[1]**2)**0.5
+
+my_points = [[1, 3], [2, 2]]
+k = 1
+
+k_closest_points = sorted(my_points, key=distance)[:k]
+print(k_closest_points)
+
+
+[[2, 2]]
+reward_list= [0, 0, 0, 1, 0]
+################################################################################
+id_number= id67
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('Geeks for Geeks', 'Learning from Geeks for Geeks') == ['Learning', 'from']
+0 baseline
+def uncommon_words(s1, s2):
+    set1 = set(s1.split())
+    set2 = set(s2.split())
+    uncommon = set1.symmetric_difference(set2)
+    return list(uncommon)
+
+
+1 summary_prompt+decomposition
+def find_uncommon_words(sentence1, sentence2):
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = []
+    for word in words1:
+        if word not in words2:
+            uncommon_words.append(word)
+    for word in words2:
+        if word not in words1:
+            uncommon_words.append(word)
+    return uncommon_words
+
+
+2 summary_prompt+mtbp_orignal
+def find_uncommon_words(s1, s2):
+    sentence1 = s1
+    sentence2 = s2
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = [word for word in words1 if word not in words2] + [word for word in words2 if word not in words1]
+    return uncommon_words
+
+
+3 summary_promptdecomposition+chainofthought
+def find_uncommon_words(sentence1, sentence2):
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = []
+    for word in words1:
+        if word not in words2:
+            uncommon_words.append(word)
+    for word in words2:
+        if word not in words1:
+            uncommon_words.append(word)
+    return uncommon_words
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_uncommon_words(s1, s2):
+    sentence1 = s1
+    sentence2 = s2
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = [word for word in words1 if word not in words2] + [word for word in words2 if word not in words1]
+    return uncommon_words
+
+
+reward_list= [0, 1, 1, 1, 1]
+################################################################################
+id_number= id68
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([2, 3, 1, 2, 3]) == [2, 3]
+0 baseline
+def find_duplicates(lst):
+    return list(set([x for x in lst if lst.count(x) > 1]))
+
+
+1 summary_prompt+decomposition
+def find_duplicates(lst):
+    duplicates = []
+    count = {}
+    for num in lst:
+        if num in count:
+            count[num] += 1
+        else:
+            count[num] = 1
+    for num, freq in count.items():
+        if freq > 1:
+            duplicates.append(num)
+    return duplicates
+
+
+2 summary_prompt+mtbp_orignal
+def find_duplicates(lst1):
+    frequency_table = {}
+    for num in lst1:
+        if num in frequency_table:
+            frequency_table[num] += 1
+        else:
+            frequency_table[num] = 1
+    lst2 = [num for num, freq in frequency_table.items() if freq > 1]
+    return lst2
+
+
+3 summary_promptdecomposition+chainofthought
+def find_duplicates(lst):
+    duplicates = []
+    count = {}
+    for num in lst:
+        if num in count:
+            count[num] += 1
+        else:
+            count[num] = 1
+    for num, freq in count.items():
+        if freq > 1:
+            duplicates.append(num)
+    return duplicates
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_duplicates(lst1):
+    frequency_table = {}
+    duplicates = []
+    for element in lst1:
+        if element in frequency_table:
+            frequency_table[element] += 1
+        else:
+            frequency_table[element] = 1
+    for element, frequency in frequency_table.items():
+        if frequency > 1:
+            duplicates.append(element)
+    return duplicates
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id69
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('popular') == 1
+0 baseline
+def first_non_repeating_char(string):
+    for char in string:
+        if string.count(char) == 1:
+            return char
+
+
+1 summary_prompt+decomposition
+def find_first_non_repeating_character(string):
+    for char in string:
+        if string.count(char) == 1:
+            return char
+    return None
+
+
+2 summary_prompt+mtbp_orignal
+def find_first_non_repeating_character(input_dict):
+    w1 = input_dict['w']
+    for char in w1:
+        if w1.count(char) == 1:
+            n1 = w1.index(char)
+            break
+    return n1
+
+
+3 summary_promptdecomposition+chainofthought
+def find_first_non_repeating_character(string):
+    for char in string:
+        if string.count(char) == 1:
+            return char
+    return None
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_first_non_repeating_character(input_string):
+    for char in input_string:
+        if input_string.count(char) == 1:
+            return input_string.index(char)
+
+input_string = 'popular'
+output = find_first_non_repeating_character(input_string)
+print(output)
+
+
+1
+reward_list= [0, 0, 0, 0, 1]
+################################################################################
+id_number= id70
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('Geeks for Geeks', 'Learning from Geeks for Geeks') == ['Learning', 'from']
+0 baseline
+def uncommon_words(s1, s2):
+    set1 = set(s1.split())
+    set2 = set(s2.split())
+    uncommon = set1.symmetric_difference(set2)
+    return list(uncommon)
+
+
+1 summary_prompt+decomposition
+def find_uncommon_words(sentence1, sentence2):
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = []
+    for word in words1:
+        if word not in words2:
+            uncommon_words.append(word)
+    for word in words2:
+        if word not in words1:
+            uncommon_words.append(word)
+    return uncommon_words
+
+
+2 summary_prompt+mtbp_orignal
+def find_uncommon_words(s1, s2):
+    sentence1 = s1
+    sentence2 = s2
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = [word for word in words1 if word not in words2] + [word for word in words2 if word not in words1]
+    return uncommon_words
+
+
+3 summary_promptdecomposition+chainofthought
+def find_uncommon_words(sentence1, sentence2):
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = []
+    for word in words1:
+        if word not in words2:
+            uncommon_words.append(word)
+    for word in words2:
+        if word not in words1:
+            uncommon_words.append(word)
+    return uncommon_words
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_uncommon_words(s1, s2):
+    sentence1 = s1
+    sentence2 = s2
+    words1 = sentence1.split()
+    words2 = sentence2.split()
+    uncommon_words = [word for word in words1 if word not in words2] + [word for word in words2 if word not in words1]
+    return uncommon_words
+
+
+reward_list= [0, 1, 1, 1, 1]
+################################################################################
+id_number= id71
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert math.isclose(candidate('Hi all, my name is Tom...I am originally from Australia.'), 4.5, rel_tol=1e-9, abs_tol=0.0)
+0 baseline
+def average_word_length(sentence):
+    words = sentence.split()
+    total_length = sum(len(word) for word in words)
+    return total_length / len(words)
+
+
+1 summary_prompt+decomposition
+def compute_average_word_length(sentence):
+    words = sentence.split()
+    total_length = sum(len(word) for word in words)
+    average_length = total_length / len(words)
+    return average_length
+
+
+2 summary_prompt+mtbp_orignal
+def compute_average_word_length(sentence):
+    words = sentence.split()
+    words = [word.strip(string.punctuation) for word in words]
+    total_length = sum(len(word) for word in words)
+    avg = total_length / len(words)
+    return avg
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_average_word_length(sentence):
+    words = sentence.split()
+    total_length = sum(len(word) for word in words)
+    average_length = total_length / len(words)
+    return average_length
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_avg_word_length(sentence):
+    words = sentence.split()
+    words = [word.strip('.,?!') for word in words]
+    avg = sum(len(word) for word in words) / len(words)
+    return avg
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id72
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('find', 'ding') == False
+0 baseline
+def compare_char_freq(w1, w2):
+    return sorted(w1) == sorted(w2)
+
+
+1 summary_prompt+decomposition
+def compare_character_frequencies(string1, string2):
+    freq1 = {}
+    freq2 = {}
+    for char in string1:
+        freq1[char] = freq1.get(char, 0) + 1
+    for char in string2:
+        freq2[char] = freq2.get(char, 0) + 1
+    return freq1 == freq2
+
+
+2 summary_prompt+mtbp_orignal
+def compare_character_frequencies(w1, w2):
+    w1 = w1.lower()
+    w2 = w2.lower()
+    f1 = {}
+    f2 = {}
+    for char in w1:
+        f1[char] = f1.get(char, 0) + 1
+    for char in w2:
+        f2[char] = f2.get(char, 0) + 1
+    return f1 == f2
+
+
+3 summary_promptdecomposition+chainofthought
+def compare_character_frequencies(string1, string2):
+    freq1 = {}
+    freq2 = {}
+    for char in string1:
+        freq1[char] = freq1.get(char, 0) + 1
+    for char in string2:
+        freq2[char] = freq2.get(char, 0) + 1
+    return freq1 == freq2
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compare_character_frequencies(w1, w2):
+    w1 = w1.lower()
+    w2 = w2.lower()
+    f1 = {}
+    f2 = {}
+    for char in w1:
+        f1[char] = f1.get(char, 0) + 1
+    for char in w2:
+        f2[char] = f2.get(char, 0) + 1
+    return f1 == f2
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id73
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("ape")=="epa"
+    assert candidate("geeksforgeeks")=="skeegrofskeeg"
+    assert candidate("apple")=="elppa"
+    assert candidate("april")=="lirpa"
+0 baseline
+def reverse_string(string):
+    return string[::-1]
+
+
+1 summary_prompt+decomposition
+def reverse_string(input_string):
+    return input_string[::-1]
+
+
+2 summary_prompt+mtbp_orignal
+def reverse_string(w):
+    w1 = w
+    w2 = w1[::-1]
+    return w2
+
+
+3 summary_promptdecomposition+chainofthought
+def reverse_string(input_string): return input_string[::-1]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def reverse_string(w):
+    w1 = w
+    w2 = w1[::-1]
+    return w2
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id74
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(12) == -5434
+0 baseline
+def calculate_difference(n):
+    return sum(range(1, n+1))**2 - sum([i**2 for i in range(1, n+1)])
+
+
+1 summary_prompt+decomposition
+def calculate_difference(numbers):
+    squared_sum = sum(numbers) ** 2
+    sum_of_squares = sum([num ** 2 for num in numbers])
+    difference = squared_sum - sum_of_squares
+    return difference
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_difference(n):
+    lst1 = list(range(1, n+1))
+    n1 = sum([x**2 for x in lst1])
+    n2 = sum(lst1)**2
+    return n1 - n2
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_difference(numbers):
+    squared_sum = sum(numbers) ** 2
+    sum_of_squares = sum([x ** 2 for x in numbers])
+    difference = squared_sum - sum_of_squares
+    return difference
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def calculate_difference(num):
+    lst1 = list(range(1, num+1))
+    n1 = sum([x**2 for x in lst1])
+    n2 = sum(lst1)**2
+    return n1 - n2
+
+
+reward_list= [0, 0, 1, 0, 1]
+################################################################################
+id_number= id75
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert math.isclose(candidate([0.3, 1.0, 2.0], [1.0, 2.0, 3.0]), 0.9832301408945487, rel_tol=1e-9, abs_tol=0.0)
+0 baseline
+import numpy as np
+
+def cosine_similarity(lst1, lst2):
+    return np.dot(lst1, lst2) / (np.linalg.norm(lst1) * np.linalg.norm(lst2))
+
+
+1 summary_prompt+decomposition
+def compute_cosine_similarity(vector1, vector2):
+    dot_product = sum([x * y for x, y in zip(vector1, vector2)])
+    magnitude1 = sum([x ** 2 for x in vector1]) ** 0.5
+    magnitude2 = sum([x ** 2 for x in vector2]) ** 0.5
+    cosine_similarity = dot_product / (magnitude1 * magnitude2)
+    return cosine_similarity
+
+
+2 summary_prompt+mtbp_orignal
+def cosine_similarity(lst1, lst2):
+    vec1 = lst1
+    vec2 = lst2
+    
+    def normalize(vector):
+        magnitude = sum([x**2 for x in vector])**0.5
+        return [x/magnitude for x in vector]
+    
+    vec1 = normalize(vec1)
+    vec2 = normalize(vec2)
+    
+    dot_product = sum([x*y for x, y in zip(vec1, vec2)])
+    
+    return dot_product
+
+print(cosine_similarity([0.3, 1.0, 2.0], [1.0, 2.0, 3.0]))
+
+
+0.9832301408945487
+3 summary_promptdecomposition+chainofthought
+def compute_cosine_similarity(vector1, vector2):
+    dot_product = sum([x * y for x, y in zip(vector1, vector2)])
+    magnitude1 = math.sqrt(sum([x ** 2 for x in vector1]))
+    magnitude2 = math.sqrt(sum([x ** 2 for x in vector2]))
+    cosine_similarity = dot_product / (magnitude1 * magnitude2)
+    return cosine_similarity
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def cosine_similarity(lst1, lst2):
+    import math
+    
+    def normalize(vector):
+        magnitude = math.sqrt(sum([x**2 for x in vector]))
+        return [x/magnitude for x in vector]
+    
+    vec1 = lst1
+    vec2 = lst2
+    
+    vec1 = normalize(vec1)
+    vec2 = normalize(vec2)
+    
+    dot_product = sum([x*y for x, y in zip(vec1, vec2)])
+    
+    return dot_product
+
+lst1 = [0.3, 1.0, 2.0]
+lst2 = [1.0, 2.0, 3.0]
+
+print(cosine_similarity(lst1, lst2))
+
+
+0.9832301408945487
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id76
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([0.0, 0.0, 0.0], [1.0, 2.0, 3.0], [0.1, 0.2, 0.3]) == True
+0 baseline
+def compare_distances(lst1, lst2):
+    return [abs(sum(lst)) for lst in [lst1, lst2]]
+
+
+1 summary_prompt+decomposition
+def compare_vector_distances_to_origin(vectors):
+    distances = []
+    for vector in vectors:
+        distance = (vector[0]**2 + vector[1]**2)**0.5
+        distances.append(distance)
+    closest_vector = vectors[distances.index(min(distances))]
+    farthest_vector = vectors[distances.index(max(distances))]
+    return (closest_vector, farthest_vector)
+
+
+2 summary_prompt+mtbp_orignal
+import numpy as np
+
+def dist(vec1, vec2):
+    return np.linalg.norm(vec1 - vec2)
+
+vec1 = [0.0, 0.0, 0.0]
+vec2 = [1.0, 2.0, 3.0]
+vec3 = [0.1, 0.2, 0.3]
+
+vec1 = np.array(vec1)
+vec2 = np.array(vec2)
+vec3 = np.array(vec3)
+
+d1 = dist(vec1, vec2)
+d2 = dist(vec1, vec3)
+
+print(d1 > d2)
+
+
+3 summary_promptdecomposition+chainofthought
+def compare_vector_distances_to_origin(vectors):
+    closest = None
+    farthest = None
+    closest_distance = float('inf')
+    farthest_distance = 0
+    for vector in vectors:
+        distance = (vector[0]**2 + vector[1]**2)**0.5
+        if distance < closest_distance:
+            closest = vector
+            closest_distance = distance
+        if distance > farthest_distance:
+            farthest = vector
+            farthest_distance = distance
+    return (closest, farthest)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import numpy as np
+
+vec1 = [0.0, 0.0, 0.0]
+vec2 = [1.0, 2.0, 3.0]
+vec3 = [0.1, 0.2, 0.3]
+
+vec1 = np.array(vec1)
+vec2 = np.array(vec2)
+vec3 = np.array(vec3)
+
+def dist(vec1, vec2):
+    return np.linalg.norm(vec1 - vec2)
+
+
+d1 = dist(vec1, vec2)
+d2 = dist(vec1, vec3)
+
+print(d1 > d2)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id77
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert math.isclose(candidate([1, 1, 1, 1, 1], [1, 2, 3, 4, 5]), 0.0, rel_tol=1e-9, abs_tol=0.0)
+0 baseline
+import statistics
+
+
+def smaller_std(l1, l2):
+    return min(statistics.stdev(l1), statistics.stdev(l2))
+
+
+1 summary_prompt+decomposition
+def find_smaller_standard_deviation(list1, list2):
+    mean1 = sum(list1) / len(list1)
+    mean2 = sum(list2) / len(list2)
+    deviation1 = (sum((x - mean1) ** 2 for x in list1) / len(list1)) ** 0.5
+    deviation2 = (sum((x - mean2) ** 2 for x in list2) / len(list2)) ** 0.5
+    if deviation1 < deviation2:
+        return list1
+    else:
+        return list2
+
+
+2 summary_prompt+mtbp_orignal
+def std(lst):
+    n = len(lst)
+    mean = sum(lst) / n
+    variance = sum((x - mean) ** 2 for x in lst) / n
+    std_dev = variance ** 0.5
+    return std_dev
+
+lst1 = [1, 1, 1, 1, 1]
+lst2 = [1, 2, 3, 4, 5]
+
+std1 = std(lst1)
+std2 = std(lst2)
+
+if std1 < std2:
+    print(std1)
+else:
+    print(std2)
+
+
+0.0
+3 summary_promptdecomposition+chainofthought
+def find_smaller_standard_deviation(list1, list2):
+    mean1 = sum(list1) / len(list1)
+    mean2 = sum(list2) / len(list2)
+    deviation1 = (sum((x - mean1) ** 2 for x in list1) / len(list1)) ** 0.5
+    deviation2 = (sum((x - mean2) ** 2 for x in list2) / len(list2)) ** 0.5
+    if deviation1 < deviation2:
+        return list1
+    else:
+        return list2
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def std(lst):
+    n = len(lst)
+    mean = sum(lst) / n
+    variance = sum((x - mean) ** 2 for x in lst) / n
+    std_dev = variance ** 0.5
+    return std_dev
+
+lst1 = [1, 1, 1, 1, 1]
+lst2 = [1, 2, 3, 4, 5]
+std1 = std(lst1)
+std2 = std(lst2)
+if std1 < std2:
+    print(std1)
+else:
+    print(std2)
+
+
+0.0
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id78
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert math.isclose(candidate([1, 1, 1, 1, 1], [1, 2, 3, 4, 5]), 1.0, rel_tol=1e-9, abs_tol=0.0)
+0 baseline
+def smaller_mean(l1, l2):
+    return min(sum(l1)/len(l1), sum(l2)/len(l2))
+
+
+1 summary_prompt+decomposition
+def find_smaller_mean(list1, list2):
+    mean1 = sum(list1) / len(list1)
+    mean2 = sum(list2) / len(list2)
+    return min(mean1, mean2)
+
+
+2 summary_prompt+mtbp_orignal
+def mean(lst):
+    return sum(lst) / len(lst)
+
+lst1 = [1, 1, 1, 1, 1]
+lst2 = [1, 2, 3, 4, 5]
+
+mean1 = mean(lst1)
+mean2 = mean(lst2)
+
+if mean1 < mean2:
+    print(mean1)
+else:
+    print(mean2)
+
+
+1.0
+3 summary_promptdecomposition+chainofthought
+def find_smaller_mean(list1, list2):
+    mean1 = sum(list1) / len(list1)
+    mean2 = sum(list2) / len(list2)
+    return min(mean1, mean2)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def mean(lst):
+    return sum(lst) / len(lst)
+
+lst1 = [1, 1, 1, 1, 1]
+lst2 = [1, 2, 3, 4, 5]
+
+mean1 = mean(lst1)
+mean2 = mean(lst2)
+
+print(min(mean1, mean2))
+
+
+1.0
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id79
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert math.isclose(candidate([1, 1, 1, 1, 1]), 0.0, rel_tol=1e-9, abs_tol=0.0)
+0 baseline
+def coefficient_of_variation(lst):
+    mean = sum(lst) / len(lst)
+    variance = sum((x - mean) ** 2 for x in lst) / len(lst)
+    return (variance ** 0.5) / mean
+
+
+1 summary_prompt+decomposition
+def compute_coefficient_of_variation(data_list):
+    mean = sum(data_list) / len(data_list)
+    variance = sum((x - mean) ** 2 for x in data_list) / len(data_list)
+    standard_deviation = variance ** 0.5
+    coefficient_of_variation = (standard_deviation / mean) * 100
+    return coefficient_of_variation
+
+
+2 summary_prompt+mtbp_orignal
+def compute_coefficient_of_variation(lst1):
+    avg = sum(lst1) / len(lst1)
+    sd = (sum((x - avg) ** 2 for x in lst1) / len(lst1)) ** 0.5
+    coefficient_of_variation = sd / avg
+    return coefficient_of_variation
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_coefficient_of_variation(data_list):
+    mean = sum(data_list) / len(data_list)
+    variance = sum((x - mean) ** 2 for x in data_list) / len(data_list)
+    standard_deviation = variance ** 0.5
+    coefficient_of_variation = (standard_deviation / mean) * 100
+    return coefficient_of_variation
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_coefficient_of_variation(lst1):
+    avg = sum(lst1) / len(lst1)
+    sd = (sum([(x - avg) ** 2 for x in lst1]) / len(lst1)) ** 0.5
+    coefficient_of_variation = sd / avg
+    return coefficient_of_variation
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id80
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1,1])==2
+    assert candidate([-1, 1, -100, 100])==202
+    assert candidate([0, 0, 59, 1, 40])==100
+    assert candidate([-50, -10, 40, 200, 1000])==1300
+0 baseline
+def sum_absolute(lst):
+    return sum(abs(x) for x in lst)
+
+
+1 summary_prompt+decomposition
+def calculate_absolute_sum(lst):
+    sum = 0
+    for num in lst:
+        sum += abs(num)
+    return sum
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_sum(lst):
+    lst2 = [abs(x) for x in lst]
+    l1 = sum(lst2)
+    return l1
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_absolute_sum(lst):
+    return sum(abs(num) for num in lst)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sum_absolute(lst1):
+    lst2 = [abs(x) for x in lst1]
+    l1 = sum(lst2)
+    return l1
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id81
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([0.3, 1.0, 2.0, -2.0, 4.0, -5.0]) == 0.017307532290566904
+    assert candidate([1.3, 5.0, 2.1, -2.4, 4.1, 5.1]) == 0.9670745372626464
+    assert candidate([1.3, 15.0, 2.9]) == 1.046418644730305
+    assert candidate([0.3, -1.0, -2.0, 5.0, 1.0, 5.1]) == 0.5092873663524808
+    assert candidate([10.3, 12.0, 20.0, 21.0, 40.0, 5.0, 10.0, 20.0, 23.0, 15.0]) == 1.8989720877738328
+0 baseline
+import statistics
+
+def compute_z_statistic(lst):
+    return (statistics.mean(lst) - 0) / statistics.stdev(lst)
+
+
+1 summary_prompt+decomposition
+def compute_z_statistic(data):
+    mean = sum(data) / len(data)
+    variance = sum((x - mean) ** 2 for x in data) / (len(data) - 1)
+    standard_deviation = variance ** 0.5
+    z_statistics = [(x - mean) / standard_deviation for x in data]
+    return z_statistics
+
+
+2 summary_prompt+mtbp_orignal
+def compute_z_statistic(lst1):
+    sample_mean = sum(lst1) / len(lst1)
+    sample_std = (sum([(x - sample_mean) ** 2 for x in lst1]) / (len(lst1) - 1)) ** 0.5
+    z_statistic = (sample_mean - 0) / (sample_std / (len(lst1) ** 0.5))
+    return z_statistic
+
+
+3 summary_promptdecomposition+chainofthought
+def compute_z_statistic(data):
+    mean = sum(data) / len(data)
+    std_deviation = (sum((x - mean) ** 2 for x in data) / (len(data) - 1)) ** 0.5
+    z_statistics = [(x - mean) / std_deviation for x in data]
+    return z_statistics
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_z_statistic(lst1):
+    # Assigns a list {lst1} to a variable named lst1
+    lst1 = [0.3, 1.0, 2.0, -2.0, 4.0, -5.0]
+    
+    # Compute the sample mean of lst1
+    mean = sum(lst1) / len(lst1)
+    
+    # Compute the sample standard deviation of lst1
+    variance = sum((x - mean) ** 2 for x in lst1) / len(lst1)
+    std_dev = variance ** 0.5
+    
+    # Compute the z-statistic to test whether its mean is 0
+    z_statistic = (mean - 0) / (std_dev / (len(lst1) ** 0.5))
+    
+    # Return the z-statistic
+    return z_statistic
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id82
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([3, -3, 2, -2]) == [3, 2, -3, -2]
+    assert candidate([-5, 7, -3, -4, 9, 10, -1, 11]) == [7, 9, 10, 11, -5, -3, -4, -1]
+    assert candidate([-1000, 11]) == [11, -1000]
+    assert candidate([9, -10, 8, 2, -77, -50, 11, 6]) == [9, 8, 2, 11, 6, -10, -77, -50]
+    assert candidate([-50, -70, -30, 4, 3, -100, 1]) == [4, 3, 1, -50, -70, -30, -100]
+0 baseline
+def move_negative_elements(lst):
+    return [x for x in lst if x >= 0] + [x for x in lst if x < 0]
+
+
+1 summary_prompt+decomposition
+def move_negative_elements(lst):
+    positive_elements = []
+    negative_elements = []
+    for element in lst:
+        if element < 0:
+            negative_elements.append(element)
+        else:
+            positive_elements.append(element)
+    return positive_elements + negative_elements
+
+
+2 summary_prompt+mtbp_orignal
+def move_negative_elements(lst):
+    lst1 = lst
+    lst_pos = [x for x in lst1 if x >= 0]
+    lst_neg = [x for x in lst1 if x < 0]
+    lst2 = lst_pos + lst_neg
+    return lst2
+
+
+3 summary_promptdecomposition+chainofthought
+def move_negative_elements(lst):
+    positive_elements = []
+    negative_elements = []
+    for element in lst:
+        if element < 0:
+            negative_elements.append(element)
+        else:
+            positive_elements.append(element)
+    return positive_elements + negative_elements
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def move_negative_elements(lst):
+    lst_pos = [x for x in lst if x >= 0]
+    lst_neg = [x for x in lst if x < 0]
+    lst2 = lst_pos + lst_neg
+    return lst2
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id83
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate("br2ace")==2
+    assert candidate("100")==100
+    assert candidate("3g4lc")==34
+    assert candidate("12Apple0")==120
+0 baseline
+def remove_alpha(string):
+    return ''.join(filter(lambda x: not x.isalpha(), string.lower()))
+
+
+1 summary_prompt+decomposition
+def process_string(input_string):
+    processed_string = input_string
+    processed_string = processed_string.lower()
+    non_alpha_string = ""
+    for char in processed_string:
+        if not char.isalpha():
+            non_alpha_string += char
+    print(non_alpha_string)
+
+
+2
+2 summary_prompt+mtbp_orignal
+def remove_alphabetical(w):
+    w = w.lower()
+    w = ''.join([char for char in w if not char.isalpha()])
+    return w
+
+
+3 summary_promptdecomposition+chainofthought
+def find_closest_integer(array):
+    if len(array) == 0:
+        return None
+    average = sum(array) / len(array)
+    closest_integer = None
+    min_difference = float('inf')
+    for num in array:
+        difference = abs(num - average)
+        if difference < min_difference:
+            min_difference = difference
+            closest_integer = num
+        elif difference == min_difference:
+            closest_integer = min(closest_integer, num)
+    return closest_integer
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def remove_alphabetical_characters(w):
+    w = w.lower()
+    w = ''.join([c for c in w if not c.isalpha()])
+    return w
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id84
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[0.884, 0.209], [0.067, 0.381], [0.503, 0.821], [0.306, 0.592], [0.417, 0.519]]) == 0.6399499999999999
+    assert candidate([[2, 2], [1, 0], [0, 4], [2, 4], [1, 1], [0, 3], [1, 0], [1, 0], [1, 3], [0, 1]]) ==16
+    assert candidate([[1, 0, 3], [4, 3, 4], [4, 1, 2], [0, 1, 0], [3, 3, 2]]) ==29
+    assert candidate([[1.022,-0.668],[-1.082,0.063],[-0.181,0.841],[0.891,1.533],[1.195,-1.69]]) ==2.35021
+    assert candidate([[-8,2,-3],[2,-10,-5],[-5,5,-8],[-3,2,-2],[3,6,2]]) ==74
+0 baseline
+import numpy as np
+
+def find_largest_norm(points):
+    return np.linalg.norm(points, axis=1).max()
+
+
+1 summary_prompt+decomposition
+def find_largest_norm(points, n):
+    largest_norm_point = None
+    largest_norm = 0
+    for point in points:
+        norm = 0
+        for coordinate in point:
+            norm += coordinate ** 2
+        norm = norm ** 0.5
+        if norm > largest_norm:
+            largest_norm = norm
+            largest_norm_point = point
+    return largest_norm_point
+
+
+2 summary_prompt+mtbp_orignal
+import numpy as np
+
+def find_largest_norm(points):
+    X = np.array(points)
+    Xn = np.dot(X, X.T)
+    np.fill_diagonal(Xn, 0)
+    return float(np.max(Xn))
+
+
+3 summary_promptdecomposition+chainofthought
+def find_largest_norm(points, n):
+    largest_norm_point = None
+    largest_norm = 0
+    for point in points:
+        norm = sum([coord**2 for coord in point])**0.5
+        if norm > largest_norm:
+            largest_norm = norm
+            largest_norm_point = point
+    return largest_norm_point
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import numpy as np
+
+X = np.array([[0.884, 0.209], [0.067, 0.381], [0.503, 0.821], [0.306, 0.592], [0.417, 0.519]])
+Xn = np.dot(X, X.T)
+np.fill_diagonal(Xn, 0)
+result = float(np.max(Xn))
+
+return result
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id85
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 1, 1, 1, 1, 0, 1, 0, 0, 0], [0, 1, 1, 0, 1, 0, 0, 0, 0, 1]) == 0.6
+    assert candidate([0, 1], [1]) == None
+    assert candidate([0], [1]) == None
+    assert candidate([2], [2]) == None
+0 baseline
+def f1_score(pred, gold):
+    tp = sum([1 for p, g in zip(pred, gold) if p == g == 1])
+    fp = sum([1 for p, g in zip(pred, gold) if p == 1 and g == 0])
+    fn = sum([1 for p, g in zip(pred, gold) if p == 0 and g == 1])
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    f1 = 2 * (precision * recall) / (precision + recall)
+    return f1
+
+
+1 summary_prompt+decomposition
+def calculate_f1_score(pred, gold):
+    true_positives = sum([1 for p, g in zip(pred, gold) if p == g and p == 1])
+    false_positives = sum([1 for p, g in zip(pred, gold) if p != g and p == 1])
+    false_negatives = sum([1 for p, g in zip(pred, gold) if p != g and p == 0])
+    precision = true_positives / (true_positives + false_positives)
+    recall = true_positives / (true_positives + false_negatives)
+    f1_score = 2 * (precision * recall) / (precision + recall)
+    return f1_score
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_f1_score(pred, y):
+    import numpy as np
+    pred = np.array(pred)
+    y = np.array(y)
+    match = pred == y
+    non_zero = y > 0
+    correct = np.logical_and(match, non_zero)
+    prec = np.sum(correct) / np.sum(pred)
+    rec = np.sum(correct) / np.sum(y > 0)
+    return 2 * (prec * rec) / (prec + rec)
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_f1_score(pred, gold):
+    tp = sum([1 for p, g in zip(pred, gold) if p == g and p == 1])
+    fp = sum([1 for p, g in zip(pred, gold) if p != g and p == 1])
+    fn = sum([1 for p, g in zip(pred, gold) if p != g and p == 0])
+    precision = tp / (tp + fp)
+    recall = tp / (tp + fn)
+    f1_score = 2 * (precision * recall) / (precision + recall)
+    return f1_score
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import numpy as np
+
+def calculate_f1_score(pred, y):
+    pred = np.array(pred)
+    y = np.array(y)
+    match = pred == y
+    non_zero = y > 0
+    correct = np.logical_and(match, non_zero)
+    prec = np.sum(correct) / np.sum(pred)
+    rec = np.sum(correct) / np.sum(y > 0)
+    f1_score = 2 * (prec * rec) / (prec + rec)
+    return f1_score
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id86
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('ACapitalLetterWords') == ' A Capital Letter Words'
+    assert candidate('camelCaseMethod') == 'camel Case Method'
+    assert candidate('ABCDE') == ' A B C D E'
+    assert candidate('splitDB') == 'split D B'
+0 baseline
+def add_spaces(s):
+    return ''.join([' ' + c if c.isupper() else c for c in s]).strip()
+
+
+1 summary_prompt+decomposition
+def add_spaces_before_capital_letters(text):
+    modified_text = ''
+    for char in text:
+        if char.isupper():
+            modified_text += ' ' + char
+        else:
+            modified_text += char
+    return modified_text
+
+
+2 summary_prompt+mtbp_orignal
+def add_spaces(string):
+    concat = string
+    import re
+    pat = r'([A-Z])'
+    result = re.sub(pat, r' \g<1>', concat)
+    return result
+
+
+3 summary_promptdecomposition+chainofthought
+def add_spaces_before_capital_letters(text):
+    modified_text = ''
+    for char in text:
+        if char.isupper():
+            modified_text += ' ' + char
+        else:
+            modified_text += char
+    return modified_text
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import re
+
+def add_spaces(value):
+    concat = value
+    pat = r'([A-Z])'
+    result = re.sub(pat, r' \1', concat)
+    return result
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id87
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([0]) == []
+    assert candidate([100]) == [100]
+    assert candidate([10000000000000000000000000000000000000000000000000]) == [10000000000000000000000000000000000000000000000000]
+    assert candidate([-100]) == [-100]
+0 baseline
+import numpy as np
+
+# Your code here
+
+# Make sure to only include the code without any explanations or additional text
+
+def sum(m,n):
+    k = m+n
+    return k
+
+
+1 summary_prompt+decomposition
+def remove_tail_data_points(data, sigma):
+    mean = sum(data) / len(data)
+    std_dev = (sum((x - mean) ** 2 for x in data) / len(data)) ** 0.5
+    threshold = 2 * sigma * std_dev
+    return [x for x in data if abs(x - mean) <= threshold]
+
+
+2 summary_prompt+mtbp_orignal
+def remove_outliers(x):
+    mean = np.mean(x)
+    std = np.std(x)
+    results = [val for val in x if val < mean - std * 2 or val > mean + std * 2]
+    results.sort()
+    return results
+
+
+3 summary_promptdecomposition+chainofthought
+def remove_tail_data_points(data, sigma):
+    mean = sum(data) / len(data)
+    std_dev = (sum((x - mean) ** 2 for x in data) / len(data)) ** 0.5
+    threshold = 2 * sigma * std_dev
+    return [x for x in data if abs(x - mean) <= threshold]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import numpy as np
+
+
+def remove_tail(data):
+    x = data
+    mean = np.mean(x)
+    std = np.std(x)
+    results = [val for val in x if val < mean - std * 2 or val > mean + std * 2]
+    results.sort()
+    return results
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id88
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([4, 2, 3, 1, 0, 3, 3, 3, 2, 1]) == [[0, 0, 0, 0, 1], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 1, 0, 0, 0], [1, 0, 0, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 0, 1, 0], [0, 0, 1, 0, 0], [0, 1, 0, 0, 0]]
+    assert candidate([0, 1, 2]) == [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+    assert candidate([1, 1, 1, 1, 1]) == [[1], [1], [1], [1], [1]]
+    assert candidate([0, 0, 0, 0, 0]) == [[1], [1], [1], [1], [1]]
+    assert candidate([0, 0, 1, 1]) == [[1, 0], [1, 0], [0, 1], [0, 1]]
+0 baseline
+def convert_to_categorical(data):
+    categories = list(set(data))
+    encoded_data = []
+    for value in data:
+        encoded_value = [0] * len(categories)
+        encoded_value[categories.index(value)] = 1
+        encoded_data.append(encoded_value)
+    return encoded_data
+
+
+1 summary_prompt+decomposition
+def convert_to_categorical(values):
+    unique_values = list(set(values))
+    categorical_variables = []
+    for value in values:
+        categorical_variable = [0] * len(unique_values)
+        categorical_variable[unique_values.index(value)] = 1
+        categorical_variables.append(categorical_variable)
+    return categorical_variables
+
+
+2 summary_prompt+mtbp_orignal
+def convert_to_categorical(x):
+    vocab = sorted(list(set(x)))
+    v2i = {v: i for i, v in enumerate(vocab)}
+    features = np.zeros((len(x), len(vocab)), dtype=int)
+    for i, val in enumerate(x):
+        features[i, v2i[val]] = 1
+    return features
+
+
+3 summary_promptdecomposition+chainofthought
+def convert_to_categorical(values):
+    categories = list(set(values))
+    categorical_variables = []
+    for value in values:
+        categorical_variable = [0] * len(categories)
+        categorical_variable[categories.index(value)] = 1
+        categorical_variables.append(categorical_variable)
+    return categorical_variables
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def convert_categorical(data):
+    x = data['x']
+    vocab = sorted(list(set(x)))
+    v2i = {v: i for i, v in enumerate(vocab)}
+    features = np.zeros((len(x), len(vocab)), dtype=int)
+    for i, val in enumerate(x):
+        features[i, v2i[val]] = 1
+    return features
+
+
+reward_list= [1, 1, 0, 1, 0]
+################################################################################
+id_number= id89
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(["a", "b", "c"], "len") == {"1": ["a", "b", "c"]}
+    assert candidate(["apple", "banana", "orange", "peach"], "len") == {"5": ["apple", "peach"], "6": ["banana", "orange"]}
+    assert candidate([1, 2, 3, "a", "b", "c"], "type") == {"int": [1, 2, 3], "str": ["a", "b", "c"]}
+    assert candidate([[1, 2, 3], "a", "b", "c"], "len") == {"1": ["a", "b", "c"], "3": [[1, 2, 3]]}
+    assert candidate([1, 2, 3, "1", "2", "3"], "str") == {"2": [2, "2"], "3": [3, "3"], "1": [1, "1"]}
+0 baseline
+def group_items(fun, x):
+    return {str(fun(item)): [item for item in x]}
+
+
+1 summary_prompt+decomposition
+def group_items(array, function):
+    result = {}
+    for item in array:
+        key = function(item)
+        if key not in result:
+            result[key] = []
+        result[key].append(item)
+    return result
+
+
+2 summary_prompt+mtbp_orignal
+def group_items(data):
+    x = data['x']
+    fun = data['fun']
+    mapped = list(map(fun, x))
+    mapped = list(map(str, mapped))
+    results = {key: [] for key in set(mapped)}
+    for m, item in zip(mapped, x):
+        results[m].append(item)
+    return results
+
+
+3 summary_promptdecomposition+chainofthought
+def group_items(array, function):
+    if not array or not callable(function):
+        return {}
+    grouped_items = {}
+    for item in array:
+        key = function(item)
+        if key not in grouped_items:
+            grouped_items[key] = []
+        grouped_items[key].append(item)
+    return grouped_items
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def group_items(data):
+    x = data['x']
+    fun = data['fun']
+    mapped = list(map(fun, x))
+    mapped = list(map(str, mapped))
+    results = {key: [] for key in set(mapped)}
+    for m, item in zip(mapped, x):
+        results[m].append(item)
+    return results
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id90
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 2, 3, 4, 5]) == 4
+    assert candidate([5, 2, 3, 4, 0]) == 2
+    assert candidate([12, 7, 8, 5, 9, 5, 14, 9, 8, 9]) == 9
+    assert candidate([1, 10, 1, 10, 0]) == 9
+    assert candidate([1, 2, 3, 2, 1]) == 2
+0 baseline
+def max_profit(prices):
+    return max(prices) - min(prices)
+
+
+1 summary_prompt+decomposition
+def find_max_profit(prices):
+    if len(prices) < 2:
+        return 0
+    min_price = prices[0]
+    max_profit = 0
+    for price in prices:
+        min_price = min(min_price, price)
+        max_profit = max(max_profit, price - min_price)
+    return max_profit
+
+
+2 summary_prompt+mtbp_orignal
+def max_profit(prices):
+    best = -1
+    minimum = prices[0]
+    for i in range(1, len(prices)):
+        best = max(best, prices[i] - minimum)
+        minimum = min(minimum, prices[i])
+    return best
+
+
+3 summary_promptdecomposition+chainofthought
+def find_max_profit(prices):
+    if len(prices) < 2:
+        return 0
+    min_price = prices[0]
+    max_profit = 0
+    for price in prices:
+        min_price = min(min_price, price)
+        max_profit = max(max_profit, price - min_price)
+    return max_profit
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def max_profit(prices):
+    best = -1
+    minimum = prices[0]
+    for i in range(1, len(prices)):
+        best = max(best, prices[i] - minimum)
+        minimum = min(minimum, prices[i])
+    return best
+
+
+reward_list= [0, 1, 1, 1, 1]
+################################################################################
+id_number= id91
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(1, [1, 2, 1, 2, 1]) == 6
+    assert candidate(1, [0, 0, 0]) == 0
+    assert candidate(1, [1.1, 2, 3, 2, 1]) == 4
+    assert candidate("1", [1, 2, 3, 2, 1]) == 0
+    assert candidate("1", [1, "1", 2, "1"]) == 4
+0 baseline
+def sum_position_indices(target, nums):
+    return sum([i for i, num in enumerate(nums) if num == target])
+
+
+1 summary_prompt+decomposition
+def sum_position_indices(values):
+    sum_indices = 0
+    for i in range(len(values)):
+        if values[i] == target:
+            sum_indices += i
+    return sum_indices
+
+
+2 summary_prompt+mtbp_orignal
+def sum_position_indices(target, nums):
+    result = []
+    for i, num in enumerate(nums):
+        if num == target:
+            result.append(i)
+    return sum(result)
+
+
+3 summary_promptdecomposition+chainofthought
+def sum_position_indices(values):
+    sum_indices = 0
+    for i in range(len(values)):
+        if values[i] == target:
+            sum_indices += i
+    return sum_indices
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def sum_position_indices(target, nums):
+    result = []
+    for i, num in enumerate(nums):
+        if num == target:
+            result.append(i)
+    return sum(result)
+
+
+reward_list= [1, 0, 1, 0, 1]
+################################################################################
+id_number= id92
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 3, 4], 4) == 2
+    assert candidate([1, 2, 3, 4], 5) == 5
+    assert candidate([4, 3, 9, 7, 8, 5, 2, 1, 10], 10) == 6
+    assert candidate([6, 15, 13, 2, 14, 17, 7, 16, 11, 9, 3, 10, 8, 5, 12, 1, 20, 4, 19], 20) == 18
+    assert candidate([], 1) == 1
+0 baseline
+def find_missing_number(nums, N):
+    return sum(range(1, N+1)) - sum(nums)
+
+
+1 summary_prompt+decomposition
+def find_missing_number(numbers, max_number):
+    total_sum = (max_number * (max_number + 1)) // 2
+    list_sum = sum(numbers)
+    missing_number = total_sum - list_sum
+    return missing_number
+
+
+2 summary_prompt+mtbp_orignal
+def find_missing_number(nums, N):
+    all_nums = set(range(1, N+1))
+    diff = all_nums - set(nums)
+    return diff.pop()
+
+
+3 summary_promptdecomposition+chainofthought
+def find_missing_number(numbers, max_number):
+    return (max_number * (max_number + 1)) // 2 - sum(numbers)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_missing_number(nums, N):
+    all_nums = set(range(1, N+1))
+    diff = all_nums - set(nums)
+    return diff.pop()
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id93
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[1, 2, 3, 4, 5], [0, 1, 3, 5, 7], [0, 2, 3, 4, 5]]) == [1, 2, 3, 4, 5]
+    assert candidate([[1, 1], [1, 1]]) == [1]
+    assert candidate([[1, 2, 3], [2, 3, 4], [3, 4, 5]]) == [3]
+    assert candidate([[1, 12, 56, 21, 5], [21, 2, 6, 11, 7], [5, 7, 13, 8, 21], [5, 21, -5, 6, 8]]) == [21]
+    assert candidate([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5]]) == [1, 2, 3, 4, 5]
+0 baseline
+def common_numbers(matrix):
+    return list(set(matrix[0]).intersection(*matrix[1:]))
+
+
+1 summary_prompt+decomposition
+def common_numbers_in_rows(matrix):
+    common_numbers = set(matrix[0])
+    for row in matrix[1:]:
+        common_numbers = common_numbers.intersection(set(row))
+    return list(common_numbers)
+
+
+2 summary_prompt+mtbp_orignal
+def common_numbers(matrix):
+    X = matrix['x']
+    common = set(X[0])
+    for row in X:
+        common = common.intersection(set(row))
+    return list(common)
+
+
+3 summary_promptdecomposition+chainofthought
+def common_numbers_in_rows(matrix):
+    sets = [set(row) for row in matrix]
+    common_numbers = set.intersection(*sets)
+    return list(common_numbers)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def common_numbers(matrix):
+    X = matrix['x']
+    common = set(X[0])
+    for row in X:
+        common = common.intersection(set(row))
+    return list(common)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id94
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(1) == 1
+    assert candidate(9) == 55
+    assert candidate(27) == 101440
+    assert candidate(28) == 330
+    assert candidate(123456789) == 1266590663
+0 baseline
+def collatz_sequence(start):
+    sequence = [start]
+    while start != 1:
+        if start % 2 == 0:
+            start = start // 2
+        else:
+            start = 3 * start + 1
+        sequence.append(start)
+    return sum(sequence)
+
+
+1 summary_prompt+decomposition
+def collatz_sequence_sum(start_number):
+    sequence = [start_number]
+    while start_number != 1:
+        if start_number % 2 == 0:
+            start_number = start_number // 2
+        else:
+            start_number = start_number * 3 + 1
+        sequence.append(start_number)
+    return sum(sequence)
+
+
+2 summary_prompt+mtbp_orignal
+def collatz_sum(start):
+    seq = [start]
+    while start != 1:
+        if start % 2 == 0:
+            start = start // 2
+        else:
+            start = start * 3 + 1
+        seq.append(start)
+    return sum(seq)
+
+
+3 summary_promptdecomposition+chainofthought
+def collatz_sequence_sum(start_number):
+    sequence = [start_number]
+    while start_number != 1:
+        if start_number % 2 == 0:
+            start_number = start_number // 2
+        else:
+            start_number = start_number * 3 + 1
+        sequence.append(start_number)
+    return sum(sequence)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def collatz_sequence(start):
+    seq = [start]
+    while start != 1:
+        if start % 2 == 0:
+            start = start // 2
+        else:
+            start = start * 3 + 1
+        seq.append(start)
+    return sum(seq)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id95
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate({'start': 'A', 'swap': ['AB', 'BC', 'CA', 'BC', 'AC']}) == 'C'
+    assert candidate({'start': 'B', 'swap': ['AC', 'CA']}) == 'B'
+    assert candidate({'start': 'C', 'swap': ['AB', 'BC', 'CA', 'BC', 'AC', 'AB', 'CA', 'BC', 'AC', 'BA']}) == 'B'
+    assert candidate({'start': 'C', 'swap': ['AB', 'AC']}) == 'A'
+    assert candidate({'start': 'A', 'swap': []}) == 'A'
+0 baseline
+def find_ball_location(start, swaps):
+    for swap in swaps:
+        if start in swap:
+            start = swap.replace(start, '')
+    return start
+
+
+1 summary_prompt+decomposition
+def ball_location_after_cup_swapping():
+    ball_location = 'A'
+    swaps = ['AB', 'BC', 'CA', 'BC', 'AC']
+    for swap in swaps:
+        if ball_location in swap:
+            ball_location = ''.join(set(swap) - set(ball_location))
+    return ball_location
+
+
+2 summary_prompt+mtbp_orignal
+def swap_cup(start, swap):
+    pos = start
+    def move(x, y):
+        return y.replace(x, '')
+    for s in swap:
+        if pos in s:
+            pos = move(pos, s)
+    return pos
+
+
+3 summary_promptdecomposition+chainofthought
+def ball_location_after_cup_swapping():
+    location = 'A'
+    swaps = ['AB', 'BC', 'CA', 'BC', 'AC']
+    for swap in swaps:
+        if location in swap:
+            location = swap.replace(location, '')
+    return 'Cup ' + location
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_closest_integer(array):
+    if len(array) == 0:
+        return None
+    average = sum(array) / len(array)
+    closest = array[0]
+    for num in array:
+        if abs(num - average) < abs(closest - average):
+            closest = num
+        elif abs(num - average) == abs(closest - average):
+            closest = min(num, closest)
+    return closest
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id96
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(123) == 321
+    assert candidate(123456789) == 987654321
+    assert candidate(100) == 1
+    assert candidate(0) == 0
+    assert candidate(1230) == 321
+0 baseline
+def reverse_digits(num):
+    stack = []
+    while num > 0:
+        digit = num % 10
+        stack.append(digit)
+        num = num // 10
+    reversed_num = 0
+    while stack:
+        reversed_num = reversed_num * 10 + stack.pop()
+    return reversed_num
+
+
+1 summary_prompt+decomposition
+def reverse_digits_with_stack(number):
+    stack = []
+    for digit in str(number):
+        stack.append(digit)
+    reversed_number = ''
+    while stack:
+        reversed_number += stack.pop()
+    return int(reversed_number)
+
+
+2 summary_prompt+mtbp_orignal
+def reverse_digits(num):
+    stack = []
+    num = str(num)
+    for char in num:
+        stack.append(char)
+    result = ''
+    while stack:
+        result += stack.pop()
+    return int(result)
+
+
+3 summary_promptdecomposition+chainofthought
+def reverse_digits_with_stack(number):
+    stack = []
+    for digit in str(number):
+        stack.append(digit)
+    reversed_number = ''
+    while stack:
+        reversed_number += stack.pop()
+    return int(reversed_number)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def reverse_digits(num):
+    stack = []
+    for char in str(num):
+        stack.append(char)
+    result = ''
+    while stack:
+        result += stack.pop()
+    return int(result)
+
+
+reward_list= [0, 1, 1, 1, 1]
+################################################################################
+id_number= id97
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(['<<', '>>>']) == '>'
+    assert candidate(['<<<', '>>']) == '<'
+    assert candidate(['<<', '>>', '<<', '>>>', '>>>']) == '>>>>'
+    assert candidate(['<<', '>>']) == ''
+    assert candidate(['<<<<<<<<<<<<', '>']) == '<<<<<<<<<<<'
+0 baseline
+def calculate_arrowheads(arrows):
+    return '>' if arrows.count('>') > arrows.count('<') else '<'
+
+
+1 summary_prompt+decomposition
+def calculate_arrowheads():
+    left_count = 0
+    right_count = 0
+    for symbol in input:
+        if symbol == '<':
+            right_count += 1
+        elif symbol == '>':
+            left_count += 1
+    return left_count, right_count
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_arrowheads(arrows):
+    joined_arrow = ''.join(arrows)
+    left = joined_arrow.count('<<')
+    right = joined_arrow.count('>>')
+    if right > left:
+        return '>' * (right - left)
+    else:
+        return '<' * (left - right)
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_arrowheads():
+    left_count = 0
+    right_count = 0
+    for symbol in input:
+        if symbol == '<':
+            right_count += 1
+        elif symbol == '>':
+            left_count += 1
+    return left_count, right_count
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def calculate_arrowheads(arrows):
+    joined_arrow = ''.join(arrows)
+    left = joined_arrow.count('<<')
+    right = joined_arrow.count('>>')
+    if right > left:
+        return '>' * (right - left)
+    else:
+        return '<' * (left - right)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id98
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 2, 3, 4, 5, 6, 8]) == false
+    assert candidate([1, 7, 8]) == true
+    assert candidate([10]) == false
+    assert candidate([0, 1]) == true
+    assert candidate([1000, 2, 3, 4, 5, 6, 1000000]) == false
+0 baseline
+def check_interval(lst):
+    return max(lst) - min(lst) in lst
+
+
+1 summary_prompt+decomposition
+def is_interval_included(lst, interval):
+    min_val = min(lst)
+    max_val = max(lst)
+    if min_val >= interval[0] and max_val <= interval[1]:
+        return True
+    else:
+        return False
+
+
+2 summary_prompt+mtbp_orignal
+def check_interval(array):
+    diff = max(array) - min(array)
+    result = diff in array
+    return result
+
+
+3 summary_promptdecomposition+chainofthought
+def is_interval_included(lst, interval):
+    min_val = min(lst)
+    max_val = max(lst)
+    if min_val >= interval[0] and max_val <= interval[1]:
+        return True
+    else:
+        return False
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def check_interval(array):
+    diff = max(array) - min(array)
+    result = diff in array
+    return result
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id99
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('aabbddcc') == 'a2b2d2c2'
+    assert candidate('abc') == 'a1b1c1'
+    assert candidate('zzzzzyyyyyxxxxxa') == 'z5y5x5a1'
+    assert candidate('aaa') == 'a3'
+    assert candidate('') == ''
+0 baseline
+def encode_string(s):
+    encoded_string = ''
+    count = 1
+    for i in range(1, len(s)):
+        if s[i] == s[i-1]:
+            count += 1
+        else:
+            encoded_string += s[i-1] + str(count)
+            count = 1
+    encoded_string += s[-1] + str(count)
+    return encoded_string
+
+
+1 summary_prompt+decomposition
+def encode_string(string):
+    encoded = ""
+    count = 1
+    for i in range(len(string)):
+        if i == len(string) - 1 or string[i] != string[i+1]:
+            encoded += string[i] + str(count)
+            count = 1
+        else:
+            count += 1
+    return encoded
+
+
+2 summary_prompt+mtbp_orignal
+def encode_string(x):
+    original = x
+    from collections import OrderedDict
+    dic = OrderedDict()
+    for char in original:
+        dic[char] = dic.get(char, 0) + 1
+    result = ''
+    for key, value in dic.items():
+        result += key + str(value)
+    return result
+
+
+3 summary_promptdecomposition+chainofthought
+def encode_string(string):
+    encoded = ""
+    count = 1
+    for i in range(len(string)):
+        if i == len(string) - 1 or string[i] != string[i+1]:
+            encoded += string[i] + str(count)
+            count = 1
+        else:
+            count += 1
+    return encoded
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def encode_string(original):
+    from collections import OrderedDict
+    dic = OrderedDict()
+    for x in original:
+        dic[x] = dic.get(x, 0) + 1
+    result = ''
+    for key, value in dic.items():
+        result += key + str(value)
+    return result
+
+
+reward_list= [0, 1, 1, 1, 1]
+################################################################################
+id_number= id100
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('abc@example.com.') == 'abc'
+    assert candidate('a.b.c@example.com test.') == 'a b c'
+    assert candidate('a1b2c3.d4e_f6@example.com.') == 'a b c  d e f '
+    assert candidate('abc@example.com test. def@abc.def.') == 'abc'
+    assert candidate('example@@example.com test, example_email@abc.io .') == 'example email'
+0 baseline
+import re
+
+def remove_special_chars(email):
+    return re.sub('[^a-zA-Z0-9]', '', email.split('@')[0])
+
+
+1 summary_prompt+decomposition
+def remove_special_chars(text):
+    import re
+    return re.sub('\W', '', text)
+
+
+2 summary_prompt+mtbp_orignal
+import re
+
+def extract_email_address(x):
+    pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+    match = re.search(pattern, x)
+    if match:
+        address = match.group()
+        address = address.split('@')[0]
+        address = re.sub('[^a-zA-Z]', ' ', address)
+        return address
+    else:
+        return None
+
+
+3 summary_promptdecomposition+chainofthought
+import re
+
+def remove_special_chars(text):
+    return re.sub('\W', '', text)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+import re
+
+
+def match_email_address(x):
+    pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+    match = re.search(pattern, x)
+    if match:
+        address = match.group()
+        address = address.split('@')[0]
+        address = re.sub('[^a-zA-Z]', ' ', address)
+        return address
+    else:
+        return None
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id101
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 3, 2, 2]) == 2
+    assert candidate([1000, 1000, 1000]) == 1000
+    assert candidate([0, 0.2, 0.4, -0.2]) == 0.2
+    assert candidate([3, 3, 3, 2, 2, 1]) == 2
+    assert candidate([0, 3, 1, 3, 2, 2, -0.2, 0.2]) == 2
+0 baseline
+def find_second_largest(arr):
+    arr.sort()
+    return arr[-2]
+
+
+1 summary_prompt+decomposition
+def print_second_largest(arr):
+    if len(arr) < 2:
+        print('The array has less than two elements.')
+        return
+    arr.sort(reverse=True)
+    if arr[0] == arr[1]:
+        print('All elements in the array are the same.')
+        return
+    print('The second largest element is', arr[1])
+
+
+The second largest element is 2
+2 summary_prompt+mtbp_orignal
+def find_second_largest(A):
+    my_numbers = A
+    unique_list = list(set(my_numbers))
+    unique_list.sort()
+    if len(unique_list) < 2:
+        return max(unique_list)
+    else:
+        return unique_list[-2]
+
+
+3 summary_promptdecomposition+chainofthought
+def print_second_largest(arr):
+    if len(arr) < 2:
+        print('The array has less than two elements.')
+    elif len(set(arr)) == 1:
+        print('All elements in the array are the same.')
+    else:
+        arr.sort(reverse=True)
+        print('The second largest element is', arr[1])
+
+
+The second largest element is 2
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_second_largest(A):
+    my_numbers = A
+    def distinct_elements(lst):
+        return list(set(lst))
+    unique_list = distinct_elements(my_numbers)
+    if len(unique_list) < 2:
+        return max(unique_list)
+    else:
+        unique_list.sort()
+        return unique_list[-2]
+
+
+reward_list= [0, 0, 1, 0, 1]
+################################################################################
+id_number= id102
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1, 3, 2, 2]) == 8
+    assert candidate([3, -3, -3]) == 3
+    assert candidate([0, 0.2, 0.4, -0.2]) == 0.6
+    assert candidate([3, 3, 3, -2, 2, 1]) ==10
+    assert candidate([-0.2,5,-0.2]) ==4.8
+0 baseline
+def largest_prefix_sum(arr):
+    prefix_sum = 0
+    max_prefix_sum = 0
+    for num in arr:
+        prefix_sum += num
+        max_prefix_sum = max(max_prefix_sum, prefix_sum)
+    return max_prefix_sum
+
+
+1 summary_prompt+decomposition
+def largest_prefix_sum(array):
+    largest_sum = array[0]
+    current_sum = array[0]
+    for i in range(1, len(array)):
+        current_sum = max(array[i], current_sum + array[i])
+        largest_sum = max(largest_sum, current_sum)
+    return largest_sum
+
+
+2 summary_prompt+mtbp_orignal
+def prefix_sum(my_numbers):
+    prefix_sum_list = []
+    sum = 0
+    for num in my_numbers:
+        sum += num
+        prefix_sum_list.append(sum)
+    return max(prefix_sum_list)
+
+
+3 summary_promptdecomposition+chainofthought
+def largest_prefix_sum(array):
+    current_sum = array[0]
+    largest_sum = array[0]
+    for i in range(1, len(array)):
+        current_sum = max(array[i], current_sum + array[i])
+        largest_sum = max(largest_sum, current_sum)
+    return largest_sum
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def prefix_sum(my_numbers):
+    prefix_sum_list = []
+    sum = 0
+    for num in my_numbers:
+        sum += num
+        prefix_sum_list.append(sum)
+    return max(prefix_sum_list)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id103
+
+
+mark:True
+
+
+test code
+def check(candidate):
+   assert candidate([1,-4,-5])==-4
+   assert candidate([-5,-6,-7])== -5
+   assert candidate([-5,-6,-7])== -5
+   assert candidate([-5,-6,-7])== -5
+   assert candidate([-5,-6,-7])== -5
+0 baseline
+def closest_to_zero(lst):
+    return min(lst, key=abs)
+
+
+1 summary_prompt+decomposition
+def find_closest_to_zero(elements):
+    closest = elements[0]
+    for element in elements[1:]:
+        if abs(element) < abs(closest):
+            closest = element
+    return closest
+
+
+2 summary_prompt+mtbp_orignal
+def find_closest_to_zero(A):
+    my_numbers = A
+    distances = [abs(num) for num in my_numbers]
+    closest_number = my_numbers[distances.index(min(distances))]
+    return closest_number
+
+
+3 summary_promptdecomposition+chainofthought
+def find_closest_to_zero(elements):
+    closest = elements[0]
+    for element in elements[1:]:
+        if abs(element) < abs(closest):
+            closest = element
+    return closest
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_closest_to_zero(my_numbers):
+    closest_number = min(my_numbers, key=abs)
+    return closest_number
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id104
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('acc') == 2
+    assert candidate('accccccccccccccccccccc') == 2
+    assert candidate('abcdef') == 6
+    assert candidate('acdeffce') == 5
+    assert candidate('aaaaaaaaaaaaa') == 1
+0 baseline
+def max_unique_subarray_length(s):
+    max_len = 0
+    start = 0
+    char_dict = {}
+    for i in range(len(s)):
+        if s[i] in char_dict and start <= char_dict[s[i]]:
+            start = char_dict[s[i]] + 1
+        else:
+            max_len = max(max_len, i - start + 1)
+        char_dict[s[i]] = i
+    return max_len
+
+
+1 summary_prompt+decomposition
+def find_max_length_subarray(array):
+    start = 0
+    end = 0
+    max_length = 0
+    unique_chars = set()
+
+    while end < len(array):
+        if array[end] not in unique_chars:
+            unique_chars.add(array[end])
+            end += 1
+            max_length = max(max_length, end - start)
+        else:
+            unique_chars.remove(array[start])
+            start += 1
+
+    return max_length
+
+
+2 summary_prompt+mtbp_orignal
+def find_max_length_subarray(my_string):
+    result_substring = ''
+    for i in range(len(my_string)):
+        substring = ''
+        for j in range(i, len(my_string)):
+            if my_string[j] not in substring:
+                substring += my_string[j]
+            else:
+                break
+        if len(substring) > len(result_substring):
+            result_substring = substring
+    return len(result_substring)
+
+
+3 summary_promptdecomposition+chainofthought
+def find_max_length_subarray(array):
+    start = 0
+    end = 0
+    max_length = 0
+    unique_chars = set()
+    while end < len(array):
+        if array[end] in unique_chars:
+            unique_chars.remove(array[start])
+            start += 1
+        else:
+            unique_chars.add(array[end])
+            end += 1
+            max_length = max(max_length, end - start)
+    return max_length
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_max_length_substring(my_string):
+    result_substring = ''
+    for i in range(len(my_string)):
+        for j in range(i, len(my_string)):
+            if len(set(my_string[i:j+1])) == len(my_string[i:j+1]):
+                if len(my_string[i:j+1]) > len(result_substring):
+                    result_substring = my_string[i:j+1]
+    return len(result_substring)
+
+
+reward_list= [1, 1, 1, 1, 1]
+################################################################################
+id_number= id105
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('aaaaaaaa') == 8
+    assert candidate('caaaaaaaaaaaa') == 12
+    assert candidate('cccccaaaaa') == 5
+    assert candidate('abcde') == 0
+0 baseline
+def most_frequent_char(s):
+    char_count = {}
+    for char in s:
+        char_count[char] = char_count.get(char, 0) + 1
+    max_count = max(char_count.values())
+    most_frequent_chars = [char for char, count in char_count.items() if count == max_count]
+    return most_frequent_chars
+
+
+1 summary_prompt+decomposition
+def print_most_frequent_characters(text):
+    frequencies = {}
+    max_frequency = 0
+
+    for char in text:
+        if char in frequencies:
+            frequencies[char] += 1
+        else:
+            frequencies[char] = 1
+
+        if frequencies[char] > max_frequency:
+            max_frequency = frequencies[char]
+
+    most_frequent_chars = []
+    for char, frequency in frequencies.items():
+        if frequency == max_frequency:
+            most_frequent_chars.append(char)
+
+    print('The most frequent characters are:', ', '.join(most_frequent_chars))
+
+
+The most frequent characters are: a
+2 summary_prompt+mtbp_orignal
+def find_most_frequent_char(my_string):
+    char_count = {}
+    for char in my_string:
+        if char in char_count:
+            char_count[char] += 1
+        else:
+            char_count[char] = 1
+    max_count = max(char_count.values())
+    return max_count
+
+print(find_most_frequent_char('abadb'))
+
+
+2
+3 summary_promptdecomposition+chainofthought
+def print_most_frequent_characters(text):
+    freq_dict = {}
+    max_freq = 0
+    for char in text:
+        freq_dict[char] = freq_dict.get(char, 0) + 1
+        max_freq = max(max_freq, freq_dict[char])
+    most_frequent_chars = [char for char, freq in freq_dict.items() if freq == max_freq]
+    print('The most frequent characters are:', ', '.join(most_frequent_chars))
+
+
+The most frequent characters are: a
+4 summary_prompt+mtbp_orignal+chainofthought
+def find_most_frequent_character(my_string):
+    frequency = {}
+    for char in my_string:
+        if char in frequency:
+            frequency[char] += 1
+        else:
+            frequency[char] = 1
+    max_frequency = max(frequency.values())
+    return len([char for char in frequency if frequency[char] == max_frequency])
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id106
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate('abcba') == 5
+    assert candidate('caaa') == 3
+    assert candidate('cccccaaaaa') == 5
+    assert candidate('abcde') == 1
+0 baseline
+def longest_callback_substring(s):
+    return max(map(len, s.split('callback')))
+
+
+1 summary_prompt+decomposition
+def find_longest_callback_substring(string):
+    max_length = 0
+    for i in range(len(string)):
+        for j in range(i+1, len(string)):
+            substring = string[i:j]
+            if substring in string[j:]:
+                max_length = max(max_length, len(substring))
+    return max_length
+
+
+2 summary_prompt+mtbp_orignal
+def is_palindrome(s):
+    return s == s[::-1]
+
+my_string = '{A}'
+palindromes = [s for s in [my_string[i:j] for i in range(len(my_string)) for j in range(i+1, len(my_string)+1)] if is_palindrome(s)]
+longest_palindrome = max(palindromes, key=len)
+print(len(longest_palindrome))
+
+
+3 summary_promptdecomposition+chainofthought
+def find_longest_callback_substring(string):
+    longest_length = 0
+    for i in range(len(string)):
+        for j in range(i+1, len(string)):
+            substring = string[i:j]
+            if substring in string[j:]:
+                longest_length = max(longest_length, len(substring))
+    return longest_length
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def is_palindrome(string):
+    return string == string[::-1]
+
+my_string = 'a'
+palindromes = [my_string[i:j] for i in range(len(my_string)) for j in range(i+1, len(my_string)+1) if is_palindrome(my_string[i:j])]
+longest_palindrome = max(palindromes, key=len)
+length = len(longest_palindrome)
+print(length)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id107
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(0) == 0
+    assert candidate(1) == 0
+    assert candidate(100) == 25
+    assert candidate(17) == 6
+0 baseline
+def count_primes(n):
+    count = 0
+    for num in range(2, n+1):
+        if all(num % i != 0 for i in range(2, int(num**0.5)+1)):
+            count += 1
+    return count
+
+
+1 summary_prompt+decomposition
+def count_primes_in_range(start, end):
+    count = 0
+    for num in range(start, end+1):
+        if num > 1:
+            for i in range(2, num):
+                if (num % i) == 0:
+                    break
+            else:
+                count += 1
+    return count
+
+
+2 summary_prompt+mtbp_orignal
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+my_integer = 10
+prime_result = [num for num in range(2, my_integer) if is_prime(num)]
+print(len(prime_result))
+
+
+3 summary_promptdecomposition+chainofthought
+def count_primes_in_range(start, end):
+    count = 0
+    for num in range(start, end+1):
+        if num > 1:
+            for i in range(2, num):
+                if (num % i) == 0:
+                    break
+            else:
+                count += 1
+    return count
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def is_prime(n): return n > 1 and all(n % i != 0 for i in range(2, int(n**0.5) + 1))
+
+my_integer = 10
+prime_result = [x for x in range(2, my_integer) if is_prime(x)]
+print(len(prime_result))
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id108
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([-1, 30, 50, 3], 2) == [50, 3, -1, 30]
+    assert candidate([2, 3, 5, -30], 1) == [-30, 2, 3, 5]
+    assert candidate([1, 2, 0, 4], 0) == [1, 2, 0, 4]
+    assert candidate([2 ,3 ,4],8) == [3 ,4 ,2]
+0 baseline
+def rotate_array(arr, k):
+    return arr[-k:] + arr[:-k]
+
+
+1 summary_prompt+decomposition
+def rotate_array(arr, k):
+    return arr[-k:] + arr[:-k]
+
+
+2 summary_prompt+mtbp_orignal
+def rotate_array(my_array, k):
+    def rotate_one_step(arr):
+        return arr[-1:] + arr[:-1]
+    rotated_result = my_array
+    for _ in range(k):
+        rotated_result = rotate_one_step(rotated_result)
+    print(rotated_result)
+
+rotate_array([1, 2, 3, 4, 5], 3)
+
+
+[3, 4, 5, 1, 2]
+[50, 3, -1, 30]
+3 summary_promptdecomposition+chainofthought
+def rotate_array(arr, k):
+    return arr[-k:] + arr[:-k]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def rotate_array(my_array, k):
+    def rotate_one_step(arr):
+        return arr[-1:] + arr[:-1]
+    rotated_result = my_array
+    for _ in range(k):
+        rotated_result = rotate_one_step(rotated_result)
+    print(rotated_result)
+
+
+[50, 3, -1, 30]
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id109
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([1 ,5 ,11 ,5]) == 'True'
+    assert candidate([1 ,2 ,3 ,5]) == 'False'
+    assert candidate([1 ,2 ,0 ,4]) == 'False'
+    assert candidate([2 ,3 ,4 ,3]) == 'True'
+0 baseline
+def can_partition(nums):
+    total_sum = sum(nums)
+    if total_sum % 2 != 0:
+        return False
+    target_sum = total_sum // 2
+    dp = [False] * (target_sum + 1)
+    dp[0] = True
+    for num in nums:
+        for i in range(target_sum, num - 1, -1):
+            if dp[i - num]:
+                dp[i] = True
+    return dp[target_sum]
+
+
+1 summary_prompt+decomposition
+def can_divide_array(array):
+    total_sum = sum(array)
+    if total_sum % 2 != 0:
+        return False
+    target_sum = total_sum // 2
+    dp = [False] * (target_sum + 1)
+    dp[0] = True
+    for num in array:
+        for i in range(target_sum, num - 1, -1):
+            dp[i] = dp[i] or dp[i - num]
+    return dp[target_sum]
+
+
+2 summary_prompt+mtbp_orignal
+def check_equal_subset(A):
+    my_array = A
+    my_sum = sum(my_array)
+    if my_sum % 2 != 0:
+        return False
+    target = my_sum // 2
+    dp = [False] * (target + 1)
+    dp[0] = True
+    for num in my_array:
+        for i in range(target, num - 1, -1):
+            dp[i] = dp[i] or dp[i - num]
+    return dp[target]
+
+
+3 summary_promptdecomposition+chainofthought
+def can_divide_array(array):
+    total_sum = sum(array)
+    if total_sum % 2 != 0:
+        return False
+    target_sum = total_sum // 2
+    dp = [False] * (target_sum + 1)
+    dp[0] = True
+    for num in array:
+        for i in range(target_sum, num - 1, -1):
+            dp[i] = dp[i] or dp[i - num]
+    return dp[target_sum]
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def check_equal_subset(A):
+    my_array = A
+    my_sum = sum(my_array)
+    def is_equal_subset(arr, target):
+        if target == 0:
+            return True
+        if len(arr) == 0 and target != 0:
+            return False
+        if arr[0] > target:
+            return is_equal_subset(arr[1:], target)
+        return is_equal_subset(arr[1:], target) or is_equal_subset(arr[1:], target - arr[0])
+    return is_equal_subset(my_array, my_sum/2)
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id110
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(5) == 2
+    assert candidate(101) == 10
+    assert candidate(8) == 2
+    assert candidate(226) == 15
+0 baseline
+import math
+
+def calculate_integral_square_root(num):
+    return int(math.sqrt(num))
+
+
+1 summary_prompt+decomposition
+def calculate_integral_square_root(number):
+    return math.floor(math.sqrt(number))
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_integral_square_root(A):
+    my_number = A
+    root_number = my_number ** 0.5
+    def get_integer_part(number):
+        return int(number)
+    print(get_integer_part(root_number))
+
+
+# Test case
+input = 2
+output = 1
+
+# Function call
+calculate_integral_square_root(input)
+
+
+1
+2
+3 summary_promptdecomposition+chainofthought
+def calculate_integral_square_root(number):
+    import math
+    return math.floor(math.sqrt(number))
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def calculate_integral_part(A):
+    my_number = A
+    root_number = my_number ** 0.5
+    def get_integer_part(number):
+        return int(number)
+    return get_integer_part(root_number)
+
+
+reward_list= [0, 0, 0, 1, 1]
+################################################################################
+id_number= id111
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(5) == [6]
+    assert candidate(101) == [1,0,2]
+    assert candidate(2345) == [2,3,4,6]
+    assert candidate(229) == [2,3,0]
+0 baseline
+def add_one(num):
+    return num + 1
+
+
+1 summary_prompt+decomposition
+def add_one_to_integer(num):
+    return num + 1
+
+
+2 summary_prompt+mtbp_orignal
+def add_one_to_integer(A):
+    my_number = A
+    plus_number = my_number + 1
+    def get_digits(number):
+        return [int(digit) for digit in str(number)]
+    return get_digits(plus_number)
+
+
+3 summary_promptdecomposition+chainofthought
+def add_one_to_integer(num):
+    return num + 1
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def add_one_to_integer(A):
+    my_number = A
+    plus_number = my_number + 1
+    def get_digits(number):
+        return [int(digit) for digit in str(number)]
+    return get_digits(plus_number)
+
+
+reward_list= [0, 0, 1, 0, 1]
+################################################################################
+id_number= id112
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate(5) == 'True'
+    assert candidate(101) == 'True'
+    assert candidate(3) == 'False'
+    assert candidate(7) == 'False'
+0 baseline
+def is_sum_of_squares(n):
+    for i in range(int(n**0.5)+1):
+        if ((n - i**2)**0.5).is_integer():
+            return True
+    return False
+
+
+1 summary_prompt+decomposition
+def is_sum_of_square_numbers(num):
+    for i in range(int(num**0.5) + 1):
+        if ((num - i**2)**0.5).is_integer():
+            return True
+    return False
+
+
+2 summary_prompt+mtbp_orignal
+def square_sum(A):
+    for i in range(int(A**0.5)+1):
+        if ((A - i*i)**0.5).is_integer():
+            return True
+    return False
+
+my_number = 2
+print(square_sum(my_number))
+
+
+True
+3 summary_promptdecomposition+chainofthought
+def is_sum_of_square_numbers(num):
+    for i in range(int(num**0.5)+1):
+        if ((num - i**2)**0.5).is_integer():
+            return True
+    return False
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def square_sum(a, b):
+    return a**2 + b**2
+
+
+def check_sum(num):
+    for i in range(int(num**0.5) + 1):
+        if ((num - i**2)**0.5).is_integer():
+            return True
+    return False
+
+
+my_number = {A}
+if check_sum(my_number):
+    print('True')
+else:
+    print('False')
+
+
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id113
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([3 ,3 ,3 ,4]) == 'True'
+    assert candidate([1 ,1 ,1 ,1 ,1 ,101]) == 'False'
+    assert candidate([1 ,2 ,3 ,4 ,5 ,6 ,7]) == 'False'
+    assert candidate([1 ,0 ,1 ,0]) == 'True'
+0 baseline
+import statistics
+
+
+
+def is_std_less_than_one(arr):
+    return statistics.stdev(arr) < 1
+
+
+1 summary_prompt+decomposition
+def is_std_dev_less_than_one(array):
+    mean = sum(array) / len(array)
+    squared_diff = [(x - mean) ** 2 for x in array]
+    variance = sum(squared_diff) / len(array)
+    std_dev = variance ** 0.5
+    return std_dev < 1
+
+
+2 summary_prompt+mtbp_orignal
+def compute_std_dev(my_array):
+    import statistics
+    result = statistics.stdev(my_array)
+    if result < 1:
+        return True
+    else:
+        return False
+
+
+3 summary_promptdecomposition+chainofthought
+def is_std_dev_less_than_one(array):
+    mean = sum(array) / len(array)
+    squared_diff = [(x - mean) ** 2 for x in array]
+    variance = sum(squared_diff) / len(array)
+    std_dev = variance ** 0.5
+    if std_dev < 1:
+        return True
+    else:
+        return False
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def compute_standard_deviation(A):
+    import math
+    mean = sum(A) / len(A)
+    variance = sum((x - mean) ** 2 for x in A) / len(A)
+    standard_deviation = math.sqrt(variance)
+    return standard_deviation < 1
+
+my_array = [14, 8, 11, 10]
+result = compute_standard_deviation(my_array)
+print(result)
+
+
+False
+reward_list= [0, 0, 0, 0, 0]
+################################################################################
+id_number= id114
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert candidate([[3 ,2 ,5] ,[2 ,3 ,5]]) == 5
+    assert candidate([[1]]) == 2
+    assert candidate([[30000 ,30000 ,1] ,[30000 ,30000 ,1] ,[30000 ,30000 ,1]]) == 6
+    assert candidate([[5 ,5 ,5 ,5 ,5 ,0]]) == 7
+0 baseline
+def sum_of_row_and_column(matrix):
+    return sum(range(len(matrix)))
+
+
+1 summary_prompt+decomposition
+def calculate_sum_matrix(matrix):
+    row_sum = sum(range(len(matrix)))
+    col_sum = sum(range(len(matrix[0])))
+    return (row_sum, col_sum)
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_sum(matrix):
+    my_matrix = matrix
+    row_number = len(my_matrix)
+    column_number = len(my_matrix[0])
+    result = row_number + column_number
+    return result
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_sum_matrix(matrix):
+    row_sum = sum(range(len(matrix)))
+    col_sum = sum(range(len(matrix[0])))
+    return (row_sum, col_sum)
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def calculate_sum_of_matrix(matrix):
+    my_matrix = matrix
+    row_number = len(my_matrix)
+    column_number = len(my_matrix[0])
+    return row_number + column_number
+
+
+reward_list= [0, 0, 1, 0, 1]
+################################################################################
+id_number= id115
+
+
+mark:True
+
+
+test code
+def check(candidate):
+    assert round(candidate([3, 2, 5, 2, 3, 5]),6) == round(0.3333333333333335 ,6)
+    assert candidate([1]) == 0
+    assert round(candidate([30000 ,30000 ,1 ,30000 ,30000 ,1 ,30000 ,30000 ,1]),6) == round(-9999.666666666668 ,6)
+    assert round(candidate([5 ,5 ,5 ,5 ,5 ,0]),6) == round(-0.833333333333333 ,6)
+0 baseline
+def mean_median_difference(arr):
+    return abs(sum(arr)/len(arr) - sorted(arr)[len(arr)//2])
+
+
+1 summary_prompt+decomposition
+def calculate_mean_median_difference(array):
+    mean = sum(array) / len(array)
+    sorted_array = sorted(array)
+    if len(array) % 2 == 0:
+        median = (sorted_array[len(array)//2] + sorted_array[len(array)//2 - 1]) / 2
+    else:
+        median = sorted_array[len(array)//2]
+    return mean - median
+
+
+2 summary_prompt+mtbp_orignal
+def calculate_difference(A):
+    my_array = A
+    mean_number = sum(my_array) / len(my_array)
+    median_number = sorted(my_array)[len(my_array) // 2]
+    difference = mean_number - median_number
+    return difference
+
+
+3 summary_promptdecomposition+chainofthought
+def calculate_mean_median_difference(array):
+    mean = sum(array) / len(array)
+    sorted_array = sorted(array)
+    if len(array) % 2 == 0:
+        median = (sorted_array[len(array)//2] + sorted_array[len(array)//2 - 1]) / 2
+    else:
+        median = sorted_array[len(array)//2]
+    difference = mean - median
+    return difference
+
+
+4 summary_prompt+mtbp_orignal+chainofthought
+def calculate_difference(A):
+    mean_number = sum(A) / len(A)
+    sorted_A = sorted(A)
+    if len(A) % 2 == 0:
+        median_number = (sorted_A[len(A)//2] + sorted_A[len(A)//2 - 1]) / 2
+    else:
+        median_number = sorted_A[len(A)//2]
+    return mean_number - median_number
+
+
+reward_list= [0, 1, 1, 1, 1]
+################################################################################
+
+
+
+
